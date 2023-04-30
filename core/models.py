@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
 from django.db import models
-# from django.contrib.gis.db import models
 from datetime import datetime
 import uuid
+
+
+ATTENDANCE_TYPE = (('CI', 'Clocked In'), ('CO', 'Clocked Out'))
 
 
 class Location(models.Model):
@@ -12,11 +14,9 @@ class Location(models.Model):
     longitude = models.DecimalField(decimal_places=10, blank=False, null=False)
     radius = models.IntegerField(default=50, blank=False, null=False)
     qr_code_url = models.TextField(blank=False, null=False)
-
+    
 
 class Attendance(models.Model):
-    ATTENDANCE_TYPE = (('CI', 'Clocked In'), ('CO', 'Clocked Out'))
-
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     employee = models.ForeignKey(User, on_delete=models.CASCADE)
     date_time = models.DateTimeField(default=datetime.now(), null=False)
