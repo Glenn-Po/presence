@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["email"]
+    REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 
@@ -22,7 +22,7 @@ class CustomUser(AbstractUser):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="User profile", null=False)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="profile", null=False)
     name = models.CharField(max_length=100, null=False)
     date_of_birth = models.DateField()
     role = models.CharField(max_length=100, null=False)

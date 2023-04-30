@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import configparser
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     # custom
     'core',
     'users',
+
+    'tailwindcss',
 
     # addons
     'tailwind',
@@ -129,4 +131,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# custom
+NPM_BIN_PATH = r'C:\js\nodejs\npm.cmd'
 AUTH_USER_MODEL = "users.CustomUser"
+TAILWIND_APP_NAME = 'tailwindcss'
