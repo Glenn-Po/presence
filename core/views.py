@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
+
+def index(req):
+    return render('index.html')
 # location
 def create_location(req):
     return render('')
