@@ -45,13 +45,16 @@ module.exports = {
         extend: {
             colors: {
               primary: '#6B4192',
+              "primary-light":"#8D55C6",
               secondary: '#FAFAFA',
               accent: '#F7E933',
+              "accent-light":"#F7EFA4",
             },
             fontFamily: {
               primary: 'Montserrat', //black
               secondary: 'Montserrat', //medium
               compliment: 'Copperplate', //bold
+              content: 'Poppins',
               sans: ['Graphik', 'sans-serif'],
               serif: ['Merriweather', 'serif'],
             },

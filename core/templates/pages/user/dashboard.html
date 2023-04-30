@@ -1,0 +1,41 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% block body %}
+
+<section class="bg-primary h-screen w-full flex items-center justify-center">
+    <div class="container w-auto h-auto bg-">
+       <div class="text-center">
+          <img
+            class="mx-auto h-20"
+            src="{% static 'images/logo-wide.png' %}"
+            alt="logo" />
+          <h4 class="mb-12 mt-1 pb-1 text-xl font-semibold">
+              Presence
+          </h4>
+        </div>
+        <div class="flex px-5 py-10 rounded-lg flex-col items-center justify-between text-secondary" style="background-color: #00000066">
+            <h2 class="text-4xl my-5 font-bold">Welcome, {{user.profile.name}}</h2>
+            <p class="text-neutral-100 mb-5">Complete your clocking routine</p>
+            <p id="date-display "
+               class="text-neutral-200 font-bold"
+            >Friday, 12 May 2023.</p>
+            <h1 id="time-display inline-block"
+                class="text-6xl my-5 font-black"
+            >1:00:00</h1>
+
+            <div class="flex w-100 items-center justify-between">
+                <a href="/employee/clock?type=CI"
+                   class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
+                >Clock In</a>
+                <a href="/employee/clock?type=CO"
+                   class="px-5 py-2 bg-white text-neutral-600 mx-4 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
+                >Clock In</a>
+                <a href="/employee/request-leave"
+                class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
+                >Request Leave</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
