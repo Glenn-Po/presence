@@ -2,13 +2,15 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from users.models import CustomUser, Profile
+from users.forms import ProfileForm
 from core.models import Location, Attendance, LeaveRequest
-from core.forms import AttendanceForm, EmployeeForm
+from core.forms import AttendanceForm, EmployeeForm, LocationForm
 from core.decorators import authorize_manager_only
 from datetime import date, datetime
 from uuid import uuid4
+from .utils import text_to_qr_code_data_uri, upload_data_uri_to_cloudinary
 
 
 '''
@@ -32,9 +34,9 @@ Admin Dashboard - Home
 '''
 
 
-@login_required(login_url='/login')
-@authorize_manager_only(redirect_url='/employee/dashboard')
-@require_GET
+# @login_required(login_url='/login')
+# @authorize_manager_only(redirect_url='/employee/dashboard')
+# @require_GET
 def render_admin_dashboard(request):
     employee_count = CustomUser.objects.filter(
         profile__is_manager=False).count()
@@ -48,15 +50,15 @@ def render_admin_dashboard(request):
         'employee_count': employee_count,
         'location_count': location_count,
         'present_today_count': present_today_count,
-        'leave_requests': leave_requests
+        'leave_requests': leave_requests,
     }
     return render(request, template_name='pages/admin/home.html', context=context)
 
 
-@authorize_manager_only(redirect_url='/employee/dashboard')
-@login_required(login_url='/login')
+# @authorize_manager_only(redirect_url='/employee/dashboard')
+# @login_required(login_url='/login')
 def delete_leave_request(request, id):
-    LeaveRequest.objects.filter(pk=id).delete()
+    get_object_or_404(LeaveRequest, pk=id).delete()
     return HttpResponseRedirect('/manager/dashboard')
 
 
@@ -68,12 +70,16 @@ Admin Dashboard - Attendances
 '''
 
 
-@login_required(login_url='/login')
-@require_GET
-@authorize_manager_only(redirect_url='/employee/dashboard')
-def attendances_view(request):
+# @login_required(login_url='/login')
+# @require_GET
+# @authorize_manager_only(redirect_url='/employee/dashboard')
+def view_attendance(request):
     attendances = Attendance.objects.all()
     return render(request, template_name='pages/admin/attendances.html', context={"attendances": attendances})
+
+
+def filter_attendance(request, field):
+    return
 
 
 '''
@@ -85,32 +91,63 @@ Admin Dashboard - Locations
 '''
 
 
-@login_required(login_url='/login')
-@require_GET
-@authorize_manager_only(redirect_url='/employee/dashboard')
+# @login_required(login_url='/login')
+# @require_GET
+# @authorize_manager_only(redirect_url='/employee/dashboard')
 def view_locations(request):
     locations = Location.objects.all()
+    attendance_today = Attendance.objects.filter(date=datetime.today())
     return render(request, template_name='pages/admin/locations.html', context={"locations": locations})
 
 
-@login_required(login_url='/login')
-@authorize_manager_only(redirect_url='/employee/dashboard')
-def create_locations(request):
+# @login_required(login_url='/login')
+# @authorize_manager_only(redirect_url='/employee/dashboard')
+def create_location(request):
+    response = {
+        "success": False,
+        "errors": {}
+    }
     if request.method == "POST":
-        name = None
-        code = uuid4()
-        longitude = None
-        latitude = None
-        radius = None
-        # generate qr code and store in cloudinary
+        form = LocationForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            longitude = form.cleaned_data["longitude"]
+            latitude = form.cleaned_data["latitude"]
+            radius = form.cleaned_data["radius"]
 
-    return render(request, template_name='pages/admin/locations.html', context={"locations": locations})
+            # generate qr code and store in cloud
+            code = uuid4()
+            qr_code_data = text_to_qr_code_data_uri(code)
+            download_url = upload_data_uri_to_cloudinary(qr_code_data)
+
+            location = Location(name=name, code=code, latitude=latitude,
+                                longitude=longitude, radius=radius, qr_code_url=download_url)
+            location.save()
+            response["success"] = True
+        else:
+            response["errors"] = "Invalid data. Make sure you entered valid values"
+
+    return render(request, template_name='pages/admin/create/location.html', context={"response": response})
 
 
-@login_required(login_url='/login')
-@authorize_manager_only(redirect_url='/employee/dashboard')
-def delete_locations(request, id):
-    Location.objects.filter(pk=id).delete()
+def update_location(request, id):
+    location = get_object_or_404(Location, pk=id)
+    response = {
+        'success': False,
+    }
+    if request.method == "POST":
+        form = LocationForm(request.POST, instance=location)
+        if form.is_valid():
+            form.save()
+            response["success"] = True
+    context = {"response": response, "location": "Location"}
+    return render(request, template_name='pages/admin/update/location.html', context=context)
+
+
+# @login_required(login_url='/login')
+# @authorize_manager_only(redirect_url='/employee/dashboard')
+def delete_location(request, id):
+    get_object_or_404(Location, pk=id).delete()
     return HttpResponseRedirect('/manager/dashboard/locations')
 
 
@@ -123,16 +160,16 @@ Admin Dashboard - Employees
 '''
 
 
-@login_required(login_url='/login')
-@authorize_manager_only(redirect_url='/employee/dashboard')
+# @login_required(login_url='/login')
+# @authorize_manager_only(redirect_url='/employee/dashboard')
 def view_employees(request):
     employees = CustomUser.objects.all()
-    return render(request, template_name='pages/admin/locations.html', context={"employees": employees})
+    return render(request, template_name='pages/admin/employees.html', context={"employees": employees})
 
 
-@login_required(login_url='/login')
-@authorize_manager_only(redirect_url='/employee/dashboard')
-def create_employees(request):
+# @login_required(login_url='/login')
+# @authorize_manager_only(redirect_url='/employee/dashboard')
+def create_employee(request):
     if request.method == "POST":
         form = EmployeeForm(request.POST)
         if form.is_valid():
@@ -158,13 +195,24 @@ def create_employees(request):
             context = {
                 "error": "Invalid form. There was an error coming from the form"}
             return render(request, template_name='pages/admin/employees.html', context=context)
-    return render(request, template_name='pages/admin/employees.html', )
+    return render(request, template_name='pages/admin/create/employee.html', )
 
 
-@login_required(login_url='/login')
-@authorize_manager_only(redirect_url='/employee/dashboard')
-def delete_employees(request, id):
-    CustomUser.objects.filter(pk=id).delete()
+def update_employee(request, id):
+    success = False
+    employee = get_object_or_404(CustomUser, pk=id)
+    profile = employee.profile
+    form = ProfileForm(request.POST, profile)
+    if form.is_valid():
+        form.save()
+        success = True
+    return render(request, template_name='pages/admin/create/employee.html', context={'success': success})
+
+
+# @login_required(login_url='/login')
+# @authorize_manager_only(redirect_url='/employee/dashboard')
+def delete_employee(request, id):
+    get_object_or_404(CustomUser, pk=id).delete()
     return HttpResponseRedirect('/manager/dashboard/employees')
 
 
@@ -175,17 +223,33 @@ User dashboard views and actions:
 2. registering the attendance. ie doing the clocking
 '''
 
+# @login_required(login_url='/login')
+
 
 def render_user_dashboard(request):
     attendance = Attendance.objects.filter(
-        employee=request.user, date=date.today()).first()
+        employee=request.user.id, date=date.today()).first()
     # cloked in only: True, clocked in but not out: false, clocked in and out: None
     clocked_in_state = True if attendance is None else None if attendance.clock_out_time is not None else False
-    return render(request, template_name="pages/user/dashboard.html", content_type={"clocked_in_state": clocked_in_state})
+    context = {
+        "clocked_in_state": clocked_in_state, "attendance": attendance}
+    return render(request, template_name="pages/user/dashboard.html", context=context)
 
 
-@login_required(login_url='/login')
-@csrf_exempt
+def request_leave(request):
+    if request.method == 'POST':
+        days_off = request.POST.get("days_off")
+        start_date = request.POST.get("start_date")
+        message = request.POST.get("message")
+        if not (days_off <= 0 or not start_date):
+            LeaveRequest.objects.create(
+                employee=request.user, days_off=days_off, start_date=start_date, message=message)
+    return render(request, template_name='pages/user/request-leave.html')
+
+# @login_required(login_url='/login')
+# @csrf_exempt
+
+
 def register_attendance(request):
     if request.method == 'POST':
         form = AttendanceForm(request.POST)

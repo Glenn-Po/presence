@@ -121,6 +121,158 @@
     </div>
     <!-- End Side Nav-->
 
+    <!-- Create User Modal-->
+    <!-- component -->
+    <section
+      id="account-create-modal"
+      data-modal-backdrop="static"
+      class="fixed z-20 h-4/5 w-3/5 top-0 left-0 bottom-0 right-0 m-auto max-w-full py-10 px-6 bg-primary rounded-md shadow-2xl shadow-black"
+    >
+      <div class="flex justify-between my-0 mr-4">
+        <h1 class="text-xl font-bold text-white capitalize dark:text-white">
+          Updating {{ employee.profile.name }}'s' account
+        </h1>
+        <a
+          href="{% url 'admin_dashboard_employees' %}"
+          id="modal-close"
+          class="flex items-center justify-center rounded-full"
+        >
+          <i class="bi bi-x-circle-fill text-3xl font-black text-red-300"></i>
+        </a>
+      </div>
+
+      <form class="overflow-y-scroll overflow-x-hidden h-full mb-5 px-2">
+        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+          <div>
+            <label class="text-white dark:text-gray-200" for="username"
+              >Full Name</label
+            >
+            <input
+              id="username"
+              type="text"
+              value="{{ employee.profile.name }}"
+              name="name"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+
+          <div>
+            <label class="text-white dark:text-gray-200" for="emailAddress"
+              >Email Address</label
+            >
+            <input
+              id="emailAddress"
+              type="email"
+              name="email"
+              value="{{ employee.email }}"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+
+          <div>
+            <label class="text-white dark:text-gray-200" for="password"
+              >Previous Password</label
+            >
+            <input
+              disabled
+              id="password"
+              type="password"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label
+              class="text-white dark:text-gray-200"
+              for="passwordConfirmation"
+              >New Password</label
+            >
+            <input
+              disabled
+              id="passwordConfirmation"
+              type="password"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-white dark:text-gray-200" for="role">Role</label>
+            <input
+              id="role"
+              type="text"
+              placeholder="Engineer"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-white dark:text-gray-200" for="start_date"
+              >Start Date</label
+            >
+            <input
+              id="start_date"
+              type="date"
+              value="{{ employee.profile.start_date }}"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-white dark:text-gray-200" for="dob"
+              >Date of Birth</label
+            >
+            <input
+              id="dob"
+              type="date"
+              value="{{ employee.profile.date_of_birth }}"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-white dark:text-gray-200" for="tel"
+              >Telephone</label
+            >
+            <input
+              id="tel"
+              type="Telephone"
+              value="{{ employee.profile.telephone }}"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-white dark:text-gray-200" for="dob"
+              >Address</label
+            >
+            <input
+              id="addr"
+              type="date"
+              value="{{ employee.profile.address }}"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-yellow-600" for="admin"
+              >Make Employee an Admin</label
+            >
+            <input
+              id="admin"
+              type="checkbox"
+              value="{{ employee.profile.is_manager }}"
+              class="block w-10 h-10 px-4 py-2 mt-2 text-primary-light bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-center my-6">
+          <button
+            type="submit"
+            data-modal-toggle="account-create-modal"
+            data-modal-target="account-create-modal"
+            class="px-10 py-4 leading-5 text-gray-500 transition-colors duration-200 transform bg-gray-100 rounded-md hover:translate-y-[-4px] focus:outline-none focus:bg-gray-600"
+          >
+            <i class="bi bi-plus text-xl"></i>
+            Create Employee Account
+          </button>
+        </div>
+      </form>
+    </section>
+
     <!-- Main content -->
     <div id="content" class="bg-primary-light col-span-9 rounded-lg p-6">
       <!-- overview -->
@@ -135,13 +287,13 @@
           <h1 class="font-bold py-4 uppercase inline-block">
             Active Employees
           </h1>
-          <a
-            href="{% url 'admin_dashboard_employees_new' %}"
-            class="px-10 py-2 leading-5 text-gray-500 flex items-center justify-center duration-200 transform bg-gray-100 rounded-md hover:bg-gray-50 hover:translate-y-[-4px] transition-transform focus:outline-none"
+          <button
+            id="modal-open"
+            class="px-10 py-2 leading-5 text-gray-500 transition-colors duration-200 transform bg-gray-100 rounded-md hover:bg-gray-50 hover:translate-y-[-4px] transition-transform focus:outline-none"
           >
             <i class="bi bi-person-plus text-xl px-3"></i>
             Create New Employee Account
-          </a>
+          </button>
         </div>
 
         <div class="overflow-x-scroll">
@@ -195,13 +347,6 @@
       </div>
     </div>
   </div>
-  <script>
-    const modal = $("#account-create-modal");
-    const openModal = $("#modal-open");
-    const closeModal = $("#modal-close");
-    openModal.click(() => modal.show());
-    closeModal.click(() => modal.hide());
-  </script>
 </div>
 
 {% endblock %}

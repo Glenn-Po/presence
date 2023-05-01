@@ -1,7 +1,8 @@
-{% extends 'components/base.html' %} {% load static %} {% block body %}
+{% extends 'components/base.html' %} {% load static %} {% block title%}
+{{user.profile.name}}'s profile {% endblock %} {% block body %}
 
 <section class="bg-primary h-screen w-full flex items-center justify-center">
-  <div class="container w-auto h-auto bg-">
+  <div class="container w-auto h-auto">
     <div class="text-center">
       <img
         class="mx-auto h-20"
@@ -16,13 +17,16 @@
     >
       <h2 class="text-4xl my-5 font-bold">Welcome, {{user.profile.name}}</h2>
       <p class="text-neutral-100 mb-5">
-        You haven't clock in yet. You clocked in at 7:00 AM
+        {% if clocked_in_state is None %} You have already clocked in for today
+        {% endif %} {% if clocked_in_state %} You clocked in at {{
+        attendance.clock_in_time }} {% else %} You haven't clock in for today
+        yet. {% endif %}
       </p>
       <p id="date-display" class="text-neutral-200 font-bold"></p>
       <h1 id="time-display" class="text-5xl my-5 font-black"></h1>
 
       <div class="flex w-full items-center justify-between px-5">
-        {% if clocked_in_state is not None %} {% if clocked_in_state == True %}
+        {% if clocked_in_state is not None %} {% if clocked_in_state %}
         <a
           href="{% url 'user_clock_action' %}"
           class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
@@ -36,7 +40,7 @@
         >
         {% endif %} {% endif %}
         <a
-          href="/employee/request-leave"
+          href="{% url 'request_leave'%}"
           class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
           >Request Leave</a
         >

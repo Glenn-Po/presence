@@ -5,6 +5,9 @@ import os
 import cloudinary
 import cloudinary.uploader
 import cloudinary.utils
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def text_to_qr_code_data_uri(text: str) -> str:

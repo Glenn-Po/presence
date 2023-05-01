@@ -220,14 +220,14 @@
               <th class="text-left py-3 px-2 rounded-r-lg">Actions</th>
             </thead>
 
-            {% for req in leave_requests%}
+            {% for req in leave_requests %}
             <tr class="border-b border-gray-700">
               <td class="py-3 px-2 font-bold">
                 <span>{{req.user.profile__name}}</span>
               </td>
               <td class="py-3 px-2">{{req.user.email}}</td>
               <td class="py-3 px-2">{{req.days_off}}</td>
-              <td class="py-3 px-2">{{req.starting_date|'D, d M Y'}}</td>
+              <td class="py-3 px-2">{{req.starting_date|date:'D, d M Y'}}</td>
               <td class="py-3 px-2">
                 <div class="inline-flex items-center space-x-3">
                   <a
