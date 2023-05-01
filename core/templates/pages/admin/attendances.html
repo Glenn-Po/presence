@@ -1,123 +1,189 @@
-{% extends 'components/base.html' %}
-{% load static %}
-{% block body %}
+{% extends 'components/base.html' %} {% load static %} {% block body %}
 
-<div class="antialiased w-full min-h-screen text-slate-300 relative py-4 bg-primary">
-
-    <div class="grid grid-cols-12 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-14 max-w-7xl my-10 px-2">
-
-        <!-- Start side nav-->
-        <div id="menu" class=" col-span-3 rounded-lg p-4 bg-primary-light">
-            <h1 class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent">Dashboard<span class="text-indigo-400">.</span></h1>
-            <p class="text-slate-400 text-sm mb-2">Welcome back,</p>
-            <a href="#" class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2">
-                <div>
-                    <i class="bi bi-person-circle text-white text-4xl"></i>
-                </div>
-                <div>
-                    <p class="font-medium group-hover:text-indigo-400 leading-4">{{ user.profile.name }}</p>
-                    <span class="text-xs text-slate-400">CIMARA Ltd</span>
-                </div>
-            </a>
-            <hr class="my-2 border-slate-700">
-
-            <!-- Start side nav items-->
-            <div id="side-menu" class="flex flex-col space-y-2 my-5 ">
-                <a href="{% url 'admin_dashboard' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
-                    <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                        <div>
-                            <i class="bi bi-house text-white text-2xl"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Dashboard</p>
-                        <p class="text-slate-400 text-sm hidden md:block">Data overview</p>
-                        </div>
-
-                    </div>
-                </a>
-                <a href="{% url 'admin_dashboard_locations' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
-                    <div class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                        <i class="bi bi-pin-map text-white text-2xl"></i>
-                        <div>
-                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Locations</p>
-                        <p class="text-slate-400 text-sm hidden md:block">Manage Locations</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="{% url 'admin_dashboard_employees' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
-                    <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                        <i class="bi bi-people text-white text-2xl"></i>
-                        <div>
-                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Employees</p>
-                        <p class="text-slate-400 text-sm hidden md:block">Manage employees</p>
-                        </div>
-
-                    </div>
-                </a>
-                <a href="{% url 'admin_dashboard_attendances' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
-                    <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                        <i class="bi bi-calendar-check text-white text-2xl text-blue-500"></i>
-                        <div>
-                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Attendance</p>
-                        <p class="text-slate-400 text-sm hidden md:block">View Attendances</p>
-                        </div>
-
-                    </div>
-                </a>
-            </div> <!-- End sidebar nav items-->
-        </div><!-- End Side Nav-->
-
-        <!-- Main content -->
-        <div id="content" class="bg-primary-light col-span-9 rounded-lg p-6">
-            <!-- overview -->
-            <h1 class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent text-center">
-                Employees<span class="text-indigo-400">.</span>
-            </h1>
-
-            <div id="attendances">
-                <h1 class="font-bold py-4 uppercase">Employee Attendances</h1>
-                <div class="overflow-x-scroll">
-                    <table class="w-full whitespace-nowrap">
-                        <thead class="bg-black/60 overflow-x-scroll">
-                            <th class="text-left py-3 px-2 rounded-l-lg">#</th>
-                            <th class="text-left py-3 px-2 ">Clock Status</th>
-                            <th class="text-left py-3 px-2 ">Employee</th>
-                            <th class="text-left py-3 px-2">Location</th>
-                            <th class="text-left py-3 px-2">Action</th>
-                            <th class="text-left py-3 px-2">Date</th>
-                            <th class="text-left py-3 px-2">Clocked in at
-                            <th class="text-left py-3 px-2">Clocked out at</th>
-                        </thead>
-                        <tr class="border-b border-gray-700">
-                            <td class="py-3 px-2 font-bold">1</td>
-                            <td class="py-3 px-2 font-bold">
-                                <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded bg-accent">
-                                    Error
-                                </span>
-                            </td>
-                            <td class="py-3 px-2 font-bold">Liam Nesson</td>
-                            <td class="py-3 px-2">Bonaberi, Douala.</td>
-                            <td class="py-3 px-2">
-                                <div class="inline-flex items-center space-x-3">
-                                    <a href="" title="View {e names}'s profile" class="hover:text-white flex item-center justify-center">
-                                        <i class="bi bi-eye text-lg m-0 p-0"></i>
-                                      </a>
-                                    <a href="" title="View  {e name's} attendance on Calendar" class="hover:text-white  flex item-center justify-center">
-                                        <i class="bi bi-calendar-check text-lg text-red-600 m-0 p-0"></i>
-                                    </a>
-                                </div>
-                            </td>
-                            <td class="py-3 px-2">12/12/2012</td>
-                            <td class="py-3 px-2">7:30 AM</td>
-                            <td class="py-3 px-2">5:00 PM</td>
-                        </tr>
-
-                    </table>
-                </div>
-            </div>
-
+<div
+  class="antialiased w-full min-h-screen text-slate-300 relative py-4 bg-primary"
+>
+  <div
+    class="grid grid-cols-12 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-14 max-w-7xl my-10 px-2"
+  >
+    <!-- Start side nav-->
+    <div id="menu" class="col-span-3 rounded-lg p-4 bg-primary-light">
+      <h1
+        class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent"
+      >
+        Dashboard<span class="text-indigo-400">.</span>
+      </h1>
+      <p class="text-slate-400 text-sm mb-2">
+        Welcome back,{{user.proile__name}}
+      </p>
+      <a
+        href="#"
+        class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
+      >
+        <div>
+          <i class="bi bi-person-circle text-white text-4xl"></i>
         </div>
+        <div>
+          <p class="font-medium group-hover:text-indigo-400 leading-4">
+            {{ user.profile.name }}
+          </p>
+          <span class="text-xs text-slate-400">CIMARA Ltd</span>
+        </div>
+      </a>
+      <hr class="my-2 border-slate-700" />
+
+      <!-- Start side nav items-->
+      <div id="side-menu" class="flex flex-col space-y-2 my-5">
+        <a
+          href="{% url 'admin_dashboard' %}"
+          class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+        >
+          <div
+            class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center"
+          >
+            <div>
+              <i class="bi bi-house text-white text-2xl"></i>
+            </div>
+            <div>
+              <p
+                class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400"
+              >
+                Dashboard
+              </p>
+              <p class="text-slate-400 text-sm hidden md:block">
+                Data overview
+              </p>
+            </div>
+          </div>
+        </a>
+        <a
+          href="{% url 'admin_dashboard_locations' %}"
+          class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+        >
+          <div
+            class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center"
+          >
+            <i class="bi bi-pin-map text-white text-2xl"></i>
+            <div>
+              <p
+                class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400"
+              >
+                Locations
+              </p>
+              <p class="text-slate-400 text-sm hidden md:block">
+                Manage Locations
+              </p>
+            </div>
+          </div>
+        </a>
+        <a
+          href="{% url 'admin_dashboard_employees' %}"
+          class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+        >
+          <div
+            class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center"
+          >
+            <i class="bi bi-people text-white text-2xl"></i>
+            <div>
+              <p
+                class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400"
+              >
+                Employees
+              </p>
+              <p class="text-slate-400 text-sm hidden md:block">
+                Manage employees
+              </p>
+            </div>
+          </div>
+        </a>
+        <a
+          href="{% url 'admin_dashboard_attendances' %}"
+          class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+        >
+          <div
+            class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center"
+          >
+            <i
+              class="bi bi-calendar-check text-white text-2xl text-blue-500"
+            ></i>
+            <div>
+              <p
+                class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400"
+              >
+                Attendance
+              </p>
+              <p class="text-slate-400 text-sm hidden md:block">
+                View Attendances
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!-- End sidebar nav items-->
     </div>
+    <!-- End Side Nav-->
+
+    <!-- Main content -->
+    <div id="content" class="bg-primary-light col-span-9 rounded-lg p-6">
+      <!-- overview -->
+      <h1
+        class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent text-center"
+      >
+        Employees Attendance<span class="text-indigo-400">.</span>
+      </h1>
+
+      <div id="attendances">
+        <h1 class="font-bold py-4 uppercase">Employee Attendances</h1>
+        <div class="overflow-x-scroll">
+          <table class="w-full whitespace-nowrap">
+            <thead class="bg-black/60 overflow-x-scroll">
+              <th class="text-left py-3 px-2 rounded-l-lg">#</th>
+              <th class="text-left py-3 px-2">Clock Status</th>
+              <th class="text-left py-3 px-2">Employee</th>
+              <th class="text-left py-3 px-2">Location</th>
+              <th class="text-left py-3 px-2">Action</th>
+              <th class="text-left py-3 px-2">Date</th>
+              <th class="text-left py-3 px-2">Clocked in at</th>
+              <th class="text-left py-3 px-2">Clocked out at</th>
+            </thead>
+            <tr class="border-b border-gray-700">
+              <td class="py-3 px-2 font-bold">1</td>
+              <td class="py-3 px-2 font-bold">
+                <span
+                  class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded bg-accent"
+                >
+                  Error
+                </span>
+              </td>
+              <td class="py-3 px-2 font-bold">Liam Nesson</td>
+              <td class="py-3 px-2">Bonaberi, Douala.</td>
+              <td class="py-3 px-2">
+                <div class="inline-flex items-center space-x-3">
+                  <a
+                    href=""
+                    title="View {e names}'s profile"
+                    class="hover:text-white flex item-center justify-center"
+                  >
+                    <i class="bi bi-eye text-lg m-0 p-0"></i>
+                  </a>
+                  <a
+                    href=""
+                    title="View  {e name's} attendance on Calendar"
+                    class="hover:text-white flex item-center justify-center"
+                  >
+                    <i class="bi bi-calendar-check text-lg m-0 p-0"></i>
+                  </a>
+                </div>
+              </td>
+              <td class="py-3 px-2">12/12/2012</td>
+              <td class="py-3 px-2">7:30 AM</td>
+              <td class="py-3 px-2">5:00 PM</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

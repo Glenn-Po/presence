@@ -1,123 +1,349 @@
-{% extends 'components/base.html' %}
-{% load static %}
-{% block body %}
+{% extends 'components/base.html' %} {% load static %} {% block body %}
 
-<div class="antialiased w-full min-h-screen text-slate-300 relative py-4 bg-primary">
-
-    <div class="grid grid-cols-12 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-14 max-w-7xl my-10 px-2">
-
-        <!-- Start side nav-->
-        <div id="menu" class=" col-span-3 rounded-lg p-4 bg-primary-light">
-            <h1 class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent">Dashboard<span class="text-indigo-400">.</span></h1>
-            <p class="text-slate-400 text-sm mb-2">Welcome back,</p>
-            <a href="#" class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2">
-                <div>
-                    <i class="bi bi-person-circle text-white text-4xl"></i>
-                </div>
-                <div>
-                    <p class="font-medium group-hover:text-indigo-400 leading-4">{{ user.profile.name }}</p>
-                    <span class="text-xs text-slate-400">CIMARA Ltd</span>
-                </div>
-            </a>
-            <hr class="my-2 border-slate-700">
-
-            <!-- Start side nav items-->
-            <div id="side-menu" class="flex flex-col space-y-2 my-5 ">
-                <a href="{% url 'admin_dashboard' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
-                    <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                        <div>
-                            <i class="bi bi-house text-white text-2xl"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Dashboard</p>
-                        <p class="text-slate-400 text-sm hidden md:block">Data overview</p>
-                        </div>
-
-                    </div>
-                </a>
-                <a href="{% url 'admin_dashboard_locations' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
-                    <div class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                        <i class="bi bi-pin-map text-white text-2xl"></i>
-                        <div>
-                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Locations</p>
-                        <p class="text-slate-400 text-sm hidden md:block">Manage Locations</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="{% url 'admin_dashboard_employees' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
-                    <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                        <i class="bi bi-people text-white text-2xl"></i>
-                        <div>
-                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Employees</p>
-                        <p class="text-slate-400 text-sm hidden md:block">Manage employees</p>
-                        </div>
-
-                    </div>
-                </a>
-                <a href="{% url 'admin_dashboard_attendances' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
-                    <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                        <i class="bi bi-calendar-check text-white text-2xl text-blue-500"></i>
-                        <div>
-                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Attendance</p>
-                        <p class="text-slate-400 text-sm hidden md:block">View Attendances</p>
-                        </div>
-
-                    </div>
-                </a>
-            </div> <!-- End sidebar nav items-->
-        </div><!-- End Side Nav-->
-
-        <!-- Main content -->
-        <div id="content" class="bg-primary-light col-span-9 rounded-lg p-6">
-            <!-- overview -->
-            <h1 class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent text-center">
-                Employees<span class="text-indigo-400">.</span>
-            </h1>
-
-            <div id="employees">
-                <h1 class="font-bold py-4 uppercase">Active Employees</h1>
-                <div class="overflow-x-scroll">
-                    <table class="w-full whitespace-nowrap">
-                        <thead class="bg-black/60 overflow-x-scroll">
-                            <th class="text-left py-3 px-2 rounded-l-lg">#</th>
-                            <th class="text-left py-3 px-2 ">Name</th>
-                            <th class="text-left py-3 px-2">Role</th>
-                            <th class="text-left py-3 px-2">Action</th>
-                            <th class="text-left py-3 px-2">Start Date</th>
-                            <th class="text-left py-3 px-2">Email</th>
-                            <th class="text-left py-3 px-2">Tel</th>
-                            <th class="text-left py-3 px-2">Address</th>
-                        </thead>
-                        <tr class="border-b border-gray-700">
-                            <td class="py-3 px-2 font-bold">1</td>
-                            <td class="py-3 px-2 font-bold">Liam Nesson</td>
-                            <td class="py-3 px-2">UI/Ux Designer</td>
-                            <td class="py-3 px-2">
-                                <div class="inline-flex items-center space-x-3">
-                                    <a href="" title="Message {employee name}" class="hover:text-white flex item-center justify-center">
-                                        <i class="bi bi-envelope text-lg m-0 p-0"></i>
-                                    </a>
-                                    <a href="" title="View {e names}'s profile" class="hover:text-white flex item-center justify-center">
-                                        <i class="bi bi-eye text-lg m-0 p-0"></i>
-                                      </a>
-                                    <a href="" title="Delete {e name's} account" class="hover:text-white  flex item-center justify-center">
-                                        <i class="bi bi-trash text-lg text-red-600 m-0 p-0"></i>
-                                    </a>
-                                </div>
-                            </td>
-                            <td class="py-3 px-2">12/12/2012</td>
-                            <td class="py-3 px-2">liam@cimara.com</td>
-                            <td class="py-3 px-2">+1 (567) 89563</td>
-                            <td class="py-3 px-2">New town, Limbe, CMR.</td>
-
-                        </tr>
-
-                    </table>
-                </div>
-            </div>
-
+<div
+  class="antialiased w-full min-h-screen text-slate-300 relative py-4 bg-primary"
+>
+  <div
+    class="grid grid-cols-12 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-14 max-w-7xl my-10 px-2"
+  >
+    <!-- Start side nav-->
+    <div id="menu" class="col-span-3 rounded-lg p-4 bg-primary-light">
+      <h1
+        class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent"
+      >
+        Dashboard<span class="text-indigo-400">.</span>
+      </h1>
+      <p class="text-slate-400 text-sm mb-2">Welcome back,</p>
+      <a
+        href="#"
+        class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
+      >
+        <div>
+          <i class="bi bi-person-circle text-white text-4xl"></i>
         </div>
+        <div>
+          <p class="font-medium group-hover:text-indigo-400 leading-4">
+            {{ user.profile.name }}
+          </p>
+          <span class="text-xs text-slate-400">CIMARA Ltd</span>
+        </div>
+      </a>
+      <hr class="my-2 border-slate-700" />
+
+      <!-- Start side nav items-->
+      <div id="side-menu" class="flex flex-col space-y-2 my-5">
+        <a
+          href="{% url 'admin_dashboard' %}"
+          class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+        >
+          <div
+            class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center"
+          >
+            <div>
+              <i class="bi bi-house text-white text-2xl"></i>
+            </div>
+            <div>
+              <p
+                class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400"
+              >
+                Dashboard
+              </p>
+              <p class="text-slate-400 text-sm hidden md:block">
+                Data overview
+              </p>
+            </div>
+          </div>
+        </a>
+        <a
+          href="{% url 'admin_dashboard_locations' %}"
+          class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+        >
+          <div
+            class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center"
+          >
+            <i class="bi bi-pin-map text-white text-2xl"></i>
+            <div>
+              <p
+                class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400"
+              >
+                Locations
+              </p>
+              <p class="text-slate-400 text-sm hidden md:block">
+                Manage Locations
+              </p>
+            </div>
+          </div>
+        </a>
+        <a
+          href="{% url 'admin_dashboard_employees' %}"
+          class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+        >
+          <div
+            class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center"
+          >
+            <i class="bi bi-people text-white text-2xl"></i>
+            <div>
+              <p
+                class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400"
+              >
+                Employees
+              </p>
+              <p class="text-slate-400 text-sm hidden md:block">
+                Manage employees
+              </p>
+            </div>
+          </div>
+        </a>
+        <a
+          href="{% url 'admin_dashboard_attendances' %}"
+          class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+        >
+          <div
+            class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center"
+          >
+            <i
+              class="bi bi-calendar-check text-white text-2xl text-blue-500"
+            ></i>
+            <div>
+              <p
+                class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400"
+              >
+                Attendance
+              </p>
+              <p class="text-slate-400 text-sm hidden md:block">
+                View Attendances
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!-- End sidebar nav items-->
     </div>
+    <!-- End Side Nav-->
+
+    <!-- Create User Modal-->
+    <!-- component -->
+    <section
+      id="account-create-modal"
+      data-modal-backdrop="static"
+      class="fixed hidden z-20 h-4/5 w-3/5 top-0 left-0 bottom-0 right-0 m-auto max-w-full py-10 px-6 bg-primary rounded-md shadow-2xl shadow-black"
+    >
+      <div class="flex justify-between my-0 mr-4">
+        <h1 class="text-xl font-bold text-white capitalize dark:text-white">
+          Create a new Account
+        </h1>
+        <button
+          id="modal-close"
+          class="flex items-center justify-center rounded-full"
+        >
+          <i class="bi bi-x-circle-fill text-3xl font-black text-red-300"></i>
+        </button>
+      </div>
+
+      <form class="overflow-y-scroll overflow-x-hidden h-full mb-5 px-2">
+        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+          <div>
+            <label class="text-white dark:text-gray-200" for="username"
+              >Full Name</label
+            >
+            <input
+              id="username"
+              type="text"
+              name="name"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+
+          <div>
+            <label class="text-white dark:text-gray-200" for="emailAddress"
+              >Email Address</label
+            >
+            <input
+              id="emailAddress"
+              type="email"
+              name="email"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+
+          <div>
+            <label class="text-white dark:text-gray-200" for="password"
+              >Password</label
+            >
+            <input
+              id="password"
+              type="password"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label
+              class="text-white dark:text-gray-200"
+              for="passwordConfirmation"
+              >Password Confirmation</label
+            >
+            <input
+              id="passwordConfirmation"
+              type="password"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-white dark:text-gray-200" for="role">Role</label>
+            <input
+              id="role"
+              type="text"
+              placeholder="Engineer"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-white dark:text-gray-200" for="start_date"
+              >Start Date</label
+            >
+            <input
+              id="start_date"
+              type="date"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-white dark:text-gray-200" for="dob"
+              >Date of Birth</label
+            >
+            <input
+              id="dob"
+              type="date"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-white dark:text-gray-200" for="tel"
+              >Telephone</label
+            >
+            <input
+              id="tel"
+              type="tel"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-white dark:text-gray-200" for="dob"
+              >Address</label
+            >
+            <input
+              id="addr"
+              type="date"
+              class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+          <div>
+            <label class="text-yellow-600" for="admin"
+              >Make Employee an Admin</label
+            >
+            <input
+              id="admin"
+              type="checkbox"
+              class="inline-block w-10 h-10 px-4 py-2 ml-0 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-center my-6">
+          <button
+            type="submit"
+            data-modal-toggle="account-create-modal"
+            data-modal-target="account-create-modal"
+            class="px-10 py-4 leading-5 text-gray-500 transition-colors duration-200 transform bg-gray-100 rounded-md hover:translate-y-[-4px] focus:outline-none focus:bg-gray-600"
+          >
+            <i class="bi bi-plus text-xl"></i>
+            Create Employee Account
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Main content -->
+    <div id="content" class="bg-primary-light col-span-9 rounded-lg p-6">
+      <!-- overview -->
+      <h1
+        class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent text-center"
+      >
+        Employees<span class="text-indigo-400">.</span>
+      </h1>
+
+      <div id="employees">
+        <div class="flex justify-between my-4">
+          <h1 class="font-bold py-4 uppercase inline-block">
+            Active Employees
+          </h1>
+          <button
+            id="modal-open"
+            class="px-10 py-2 leading-5 text-gray-500 transition-colors duration-200 transform bg-gray-100 rounded-md hover:bg-gray-50 hover:translate-y-[-4px] transition-transform focus:outline-none"
+          >
+            <i class="bi bi-person-plus text-xl px-3"></i>
+            Create New Employee Account
+          </button>
+        </div>
+
+        <div class="overflow-x-scroll">
+          <table class="w-full whitespace-nowrap">
+            <thead class="bg-black/60 overflow-x-scroll">
+              <th class="text-left py-3 px-2 rounded-l-lg">#</th>
+              <th class="text-left py-3 px-2">Name</th>
+              <th class="text-left py-3 px-2">Role</th>
+              <th class="text-left py-3 px-2">Action</th>
+              <th class="text-left py-3 px-2">Start Date</th>
+              <th class="text-left py-3 px-2">Email</th>
+              <th class="text-left py-3 px-2">Tel</th>
+              <th class="text-left py-3 px-2">Address</th>
+            </thead>
+            <tr class="border-b border-gray-700">
+              <td class="py-3 px-2 font-bold">1</td>
+              <td class="py-3 px-2 font-bold">Liam Nesson</td>
+              <td class="py-3 px-2">UI/Ux Designer</td>
+              <td class="py-3 px-2">
+                <div class="inline-flex items-center space-x-3">
+                  <a
+                    href=""
+                    title="Message {employee name}"
+                    class="hover:text-white flex item-center justify-center"
+                  >
+                    <i class="bi bi-envelope text-lg m-0 p-0"></i>
+                  </a>
+                  <a
+                    href=""
+                    title="View {e names}'s profile"
+                    class="hover:text-white flex item-center justify-center"
+                  >
+                    <i class="bi bi-eye text-lg m-0 p-0"></i>
+                  </a>
+                  <a
+                    href=""
+                    title="Delete {e name's} account"
+                    class="hover:text-red-900 text-gray-100 flex item-center justify-center"
+                  >
+                    <i class="bi bi-trash text-lg m-0 p-0"></i>
+                  </a>
+                </div>
+              </td>
+              <td class="py-3 px-2">12/12/2012</td>
+              <td class="py-3 px-2">liam@cimara.com</td>
+              <td class="py-3 px-2">+1 (567) 89563</td>
+              <td class="py-3 px-2">New town, Limbe, CMR.</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const modal = $("#account-create-modal");
+    const openModal = $("#modal-open");
+    const closeModal = $("#modal-close");
+    openModal.click(() => modal.show());
+    closeModal.click(() => modal.hide());
+  </script>
 </div>
 
 {% endblock %}

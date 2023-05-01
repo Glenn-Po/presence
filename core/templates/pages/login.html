@@ -1,13 +1,13 @@
-{% extends 'components/base.html' %}
-{% load static %}
-{% block body %}
-<section class="gradient-form h-full bg-primary flex items-center justify-center">
+{% extends 'components/base.html' %} {% load static %} {% block body %}
+<section
+  class="gradient-form h-full bg-primary flex items-center justify-center"
+>
   <div class="container h-full p-10 flex justify-center items-center">
     <div
-      class="g-6 flex h-full flex-wrap items-center justify-center text-secondary ">
+      class="g-6 flex h-full flex-wrap items-center justify-center text-secondary"
+    >
       <div class="w-full">
-        <div
-          class="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
+        <div class="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
           <div class="g-0 lg:flex lg:flex-wrap">
             <!-- Left column container-->
             <div class="px-4 md:px-0 lg:w-6/12 bg-white text-black">
@@ -17,57 +17,58 @@
                   <img
                     class="mx-auto w-48"
                     src="{% static 'images/logo-square.png' %}"
-                    alt="logo" />
+                    alt="logo"
+                  />
                   <h4 class="mb-12 mt-1 pb-1 text-xl font-semibold">
-                      presence for CIMARA
+                    presence for CIMARA
                   </h4>
                 </div>
 
-                <form>
+                <form method="POST">
+                  {% csrf_token %}
                   <p class="mb-4">Please login to your account</p>
                   <!--Username input-->
-                  <div class="relative mb-4" data-te-input-wrapper-init>
+                  <div class="relative mb-4">
+                    <label for="email">Email </label>
                     <input
                       type="email"
-                      class="peer block min-h-[auto] w-full rounded border-1 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-500 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                      class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                       id="email"
-                      placeholder="Email" />
-                    <label
-                      for="email"
-                      class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                      >Email
-                    </label>
+                      name="email"
+                      placeholder="Email"
+                    />
                   </div>
 
                   <!--Password input-->
                   <div class="relative mb-4" data-te-input-wrapper-init>
+                    <label for="password">Password </label>
                     <input
                       type="password"
-                      class="peer block min-h-[auto] w-full rounded border-1 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-500 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                      class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                       id="password"
-                      placeholder="Password" />
-                    <label
-                      for="password"
-                      class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                      >Password
-                    </label>
+                      name="password"
+                      placeholder="Password"
+                    />
+                  </div>
+
+                  <div class="my-2">
+                    <p class="text-red-600 text-sm">{{ error }}</p>
                   </div>
 
                   <!--Submit button-->
                   <div class="mb-12 pb-1 pt-1 text-center">
                     <button
-                      class="bg-primary mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
+                      class="bg-primary mb-3 inline-block w-full rounded-lg px-6 py-3 text-md font-medium leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
                       type="submit"
                       data-te-ripple-init
                       data-te-ripple-color="light"
-                      >
+                    >
                       Log in
                     </button>
 
                     <!--Forgot password link-->
                     <a href="#!">Forgot password?</a>
                   </div>
-
                 </form>
               </div>
             </div>
@@ -75,18 +76,25 @@
             <!-- Right column container with background and description-->
             <div
               class="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
-              style="background: linear-gradient(to top right, #6B4192, #8D55C6, #8D55C6, #6B4192)"
+              style="
+                background: linear-gradient(
+                  to top right,
+                  #6b4192,
+                  #8d55c6,
+                  #8d55c6,
+                  #6b4192
+                );
+              "
             >
               <div class="px-4 py-6 text-white md:mx-6 md:p-12">
                 <h4 class="mb-6 text-xl font-semibold">
                   We are more than just a company
                 </h4>
                 <p class="text-sm">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing
-                  elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam, quis
-                  nostrud exercitation ullamco laboris nisi ut aliquip ex
-                  ea commodo consequat.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.
                 </p>
               </div>
             </div>

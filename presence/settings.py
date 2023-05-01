@@ -135,4 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # custom
 NPM_BIN_PATH = r'C:\js\nodejs\npm.cmd'
 AUTH_USER_MODEL = "users.CustomUser"
+# AUTHENTICATION_BACKENDS = ['app.backends.EmailBackend']
 TAILWIND_APP_NAME = 'tailwindcss'
