@@ -3,67 +3,146 @@
 {% block body %}
 
 <main class="bg-primary h-screen w-full p-5 flex items-center justify-center">
-    <div class="container p-6 rounded-lg flex bg-primary-light wrap-reverse">
-        <div class="flex-1 h-100 p-10">
-            <ol class="relative text-gray-500 border-l border-gray-200 dark:border-gray-700 dark:text-gray-400">
+    <div class="container p-6 rounded-lg flex flex-row bg-primary-light wrap">
+        <div class="flex-1 h-100 p-10 flex items-center justify-center" style="min-width: 200px">
+            <ol class="relative text-gray-500 border-l border-white dark:text-gray-400">
                 <li class="mb-10 ml-6">
-                    <span class="absolute flex items-center justify-center w-8 h-8 bg-green-200 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900">
-                        <svg aria-hidden="true" class="w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+
+                    <span class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-4 ring-white ">
+                        <i class="bi bi-shield-fill-plus text-xl text-white" ></i>
                     </span>
-                    <h3 class="font-medium leading-tight">Personal Info</h3>
-                    <p class="text-sm">Step details here</p>
+                    <h3 class="font-medium leading-tight">Permissions</h3>
+                    <p class="text-sm">Grant permissions for camera and location when you are promted</p>
                 </li>
                 <li class="mb-10 ml-6">
-                    <span class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700">
-                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                    <span class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-4 ring-white ">
+                        <i class="bi bi-qr-code-scan text-xl text-white" ></i>
                     </span>
-                    <h3 class="font-medium leading-tight">Account Info</h3>
-                    <p class="text-sm">Step details here</p>
-                </li>
-                <li class="mb-10 ml-6">
-                    <span class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700">
-                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+                    <h3 class="font-medium leading-tight">Scan the Code</h3>
+                    <p class="text-sm">Point your camera at the code and make sure it is in view and click/tap
+                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">
+                        start scanning
                     </span>
-                    <h3 class="font-medium leading-tight">Review</h3>
-                    <p class="text-sm">Step details here</p>
+
+                    </p>
                 </li>
-                <li class="ml-6">
-                    <span class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700">
-                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+<!--                <li class="mb-10 ml-6">-->
+<!--                    <span class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700">-->
+<!--                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>-->
+<!--                    </span>-->
+<!--                    <h3 class="font-medium leading-tight">Review</h3>-->
+<!--                    <p class="text-sm">Step details here</p>-->
+<!--                </li>-->
+                <li class="ml-6 mb-0">
+                    <span class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 ring-4 ring-white">
+                        <i class="bi bi-arrow-right-circle-fill text-xl text-white" ></i>
                     </span>
                     <h3 class="font-medium leading-tight">Confirmation</h3>
-                    <p class="text-sm">Step details here</p>
+                    <p class="text-sm">
+                        Hold your camera steady until you are notified of success.
+                        Click <span class="bg-slate-100 text-slate-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">
+                        Finish clocking
+                    </span>
+                    </p>
                 </li>
             </ol>
 
         </div>
-        <div  class="flex-1 h-100 p-10">
-            <form action="#">
-                <h3 class="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Invoice details</h3>
-                <div class="grid gap-4 mb-4 sm:grid-cols-2">
-                    <div>
-                        <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                        <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="username.example" required="">
-                    </div>
-                    <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
-                    </div>
-                    <div>
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                        <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required="">
-                    </div>                        <div>
-                        <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                        <input type="password" name="confirm-password" id="confirm-password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required="">
-                    </div>
-                </div>
-                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Next Step: Payment Info
-                </button>
-            </form>
+        <div  class="flex-1 h-100 p-10 min-w-100" style="min-width: 350px;">
+<!--            <form action="#">-->
+<!--                <h3 class="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Invoice details</h3>-->
+<!--                <div class="grid gap-4 mb-4 sm:grid-cols-2">-->
+<!--                    <div>-->
+<!--                        <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>-->
+<!--                        <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="username.example" required="">-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>-->
+<!--                        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>-->
+<!--                        <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required="">-->
+<!--                    </div>                        <div>-->
+<!--                        <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>-->
+<!--                        <input type="password" name="confirm-password" id="confirm-password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required="">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">-->
+<!--                    Next Step: Payment Info-->
+<!--                </button>-->
+<!--            </form>-->
 
+                <div id="qr-reader" class="border-none color-white" style="width:300px;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important; border: none !important; border-radius: 8px !important; overflow: hidden !important"></div>
+
+                <div id="success" class="hidden flex-col items-center justify-center">
+                    <i class="bi bi-check2-circle text-9xl text-white m-5">
+
+                    </i>
+                    <button type="submit"
+                            id="btn-register-attend"
+                            class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all">
+                        Finish clocking</button>
+                </div>
         </div>
     </div>
 </main>
+
+<style>
+    /* qr code styles*/
+    #qr-reader__dashboard {
+        background-color: #45AA67;
+    }
+    #qr-reader__dashboard_section__stop_scanning{
+        background-color: red;
+    }
+    #html5-qrcode-button-camera-stop, #html5-qrcode-button-camera-start{
+        margin: 4px;
+        padding: 8px 30px;
+        border-radius: 5px;
+        color: white;
+    }
+    #html5-qrcode-button-camera-stop{
+        background-color: #AA5555;
+    }
+    #html5-qrcode-button-camera-start{
+        background-color: #55AA55;
+    }
+
+</style>
+
+<script >
+    let data = new FormData();
+    let html5QrcodeScanner
+    const registerAttendance = async function(){
+        fetch(`${window.location.origin}`/employee/dashboard/clock`, {
+                data: data
+                method: "POST"
+                }
+            ).then(()=>alert("success").catch(()=>alert("failure"))
+        $('#success').removeClass('hidden').addClass('flex')
+    }
+    const onScanSuccess = function(code){
+        data.set("code", code)
+        html5QrcodeScanner.clear()
+
+    }
+    const scanCode = function(){
+        html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader", { fps: 10, qrbox: 250 });
+        html5QrcodeScanner.render(onScanSuccess)
+    }
+
+    $('#btn-register-attend').click(registerAttendance)
+    (aysnc function(){
+        const {latitude, longitude} = (await getPosition()).coords
+        data.set("longitude", longitude)
+        data.set("latitude", latitude)
+        console.log(data)
+    })()
+
+    scanCode()
+
+</script>
 
 {% endblock %}

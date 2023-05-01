@@ -70,46 +70,41 @@
         <!-- Main content -->
         <div id="content" class="bg-primary-light col-span-9 rounded-lg p-6">
             <!-- overview -->
-            <h1 class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent text-center">
-                Employees<span class="text-indigo-400">.</span>
-            </h1>
+            <h1 class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent text-center">Locations<span class="text-indigo-400">.</span></h1>
 
-            <div id="attendances">
-                <h1 class="font-bold py-4 uppercase">Employee Attendances</h1>
+            <div id="locations">
+                <h1 class="font-bold py-4 uppercase">Saved Locations</h1>
                 <div class="overflow-x-scroll">
                     <table class="w-full whitespace-nowrap">
                         <thead class="bg-black/60 overflow-x-scroll">
                             <th class="text-left py-3 px-2 rounded-l-lg">#</th>
-                            <th class="text-left py-3 px-2 ">Clock Status</th>
-                            <th class="text-left py-3 px-2 ">Employee</th>
-                            <th class="text-left py-3 px-2">Location</th>
-                            <th class="text-left py-3 px-2">Action</th>
-                            <th class="text-left py-3 px-2">Date</th>
-                            <th class="text-left py-3 px-2">Clocked in at
-                            <th class="text-left py-3 px-2">Clocked out at</th>
+                            <th class="text-left py-3 px-2 ">Town/City</th>
+                            <th class="text-left py-3 px-2">#Employees Onsite</th>
+                            <th class="text-left py-3 px-2">Actions</th>
+                            <th class="text-left py-3 px-2 rounded-r-lg">Download QR Code</th>
                         </thead>
                         <tr class="border-b border-gray-700">
                             <td class="py-3 px-2 font-bold">1</td>
-                            <td class="py-3 px-2 font-bold">
-                                <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded bg-accent">
-                                    Error
-                                </span>
-                            </td>
-                            <td class="py-3 px-2 font-bold">Liam Nesson</td>
-                            <td class="py-3 px-2">Bonaberi, Douala.</td>
+                            <td class="py-3 px-2 font-bold">Etoudi, Yaounde</td>
+                            <td class="py-3 px-2">03</td>
                             <td class="py-3 px-2">
                                 <div class="inline-flex items-center space-x-3">
-                                    <a href="" title="View {e names}'s profile" class="hover:text-white flex item-center justify-center">
-                                        <i class="bi bi-eye text-lg m-0 p-0"></i>
+                                    <a href="" title="Edit this location" class="hover:text-white flex item-center justify-center">
+                                        <i class="bi bi-pen text-lg m-0 p-0"></i>
+                                    </a>
+                                    <a href="" title="Open in Google Maps" class="hover:text-white flex item-center justify-center">
+                                        <i class="bi bi-geo-alt text-lg m-0 p-0"></i>
                                       </a>
-                                    <a href="" title="View  {e name's} attendance on Calendar" class="hover:text-white  flex item-center justify-center">
-                                        <i class="bi bi-calendar-check text-lg text-red-600 m-0 p-0"></i>
+                                    <a href="" title="Delete this request" class="hover:text-white  flex item-center justify-center">
+                                        <i class="bi bi-trash text-lg m-0 p-0"></i>
                                     </a>
                                 </div>
                             </td>
-                            <td class="py-3 px-2">12/12/2012</td>
-                            <td class="py-3 px-2">7:30 AM</td>
-                            <td class="py-3 px-2">5:00 PM</td>
+                            <td class="py-3 px-2">
+                                <a href="" title="Download Qr code for {location name}" class="hover:text-white  flex item-center justify-center">
+                                        <i class="bi bi-download text-lg m-0 p-0"></i>
+                                </a>
+                            </td>
                         </tr>
 
                     </table>

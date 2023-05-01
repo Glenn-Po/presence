@@ -1,0 +1,165 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="antialiased w-full min-h-screen text-slate-300 relative py-4 bg-primary">
+    <div class="grid grid-cols-12 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-14 max-w-7xl my-10 px-2">
+
+        <!-- Start side nav-->
+        <div id="menu" class=" col-span-3 rounded-lg p-4 bg-primary-light">
+            <h1 class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent">Dashboard<span class="text-indigo-400">.</span></h1>
+            <p class="text-slate-400 text-sm mb-2">Welcome back,</p>
+            <a href="#" class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2">
+                <div>
+                    <i class="bi bi-person-circle text-white text-4xl"></i>
+                </div>
+                <div>
+                    <p class="font-medium group-hover:text-indigo-400 leading-4">{{ user.profile.name }}</p>
+                    <span class="text-xs text-slate-400">CIMARA Ltd</span>
+                </div>
+            </a>
+            <hr class="my-2 border-slate-700">
+
+            <!-- Start side nav items-->
+            <div id="side-menu" class="flex flex-col space-y-2 my-5 ">
+                <a href="{% url 'admin_dashboard' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
+                    <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                        <div>
+                            <i class="bi bi-house text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Dashboard</p>
+                        <p class="text-slate-400 text-sm hidden md:block">Data overview</p>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="{% url 'admin_dashboard_locations' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
+                    <div class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                        <i class="bi bi-pin-map text-white text-2xl"></i>
+                        <div>
+                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Locations</p>
+                        <p class="text-slate-400 text-sm hidden md:block">Manage Locations</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="{% url 'admin_dashboard_employees' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
+                    <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                        <i class="bi bi-people text-white text-2xl"></i>
+                        <div>
+                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Employees</p>
+                        <p class="text-slate-400 text-sm hidden md:block">Manage employees</p>
+                        </div>
+
+                    </div>
+                </a>
+                <a href="{% url 'admin_dashboard_attendances' %}" class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
+                    <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                        <i class="bi bi-calendar-check text-white text-2xl text-blue-500"></i>
+                        <div>
+                            <p class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">Attendance</p>
+                        <p class="text-slate-400 text-sm hidden md:block">View Attendances</p>
+                        </div>
+
+                    </div>
+                </a>
+            </div> <!-- End sidebar nav items-->
+        </div><!-- End Side Nav-->
+
+        <!-- Main content -->
+        <div id="content" class="bg-primary-light col-span-9 rounded-lg p-6">
+            <!-- overview -->
+            <div id="24h">
+                <h1 class="font-bold py-4 uppercase">Statistics</h1>
+
+                <div id="stats" class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-black/60 to-white/5 p-6 rounded-lg">
+                        <div class="flex flex-row space-x-4 items-center">
+                            <div id="stats-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-white">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                                  </svg>
+                            </div>
+                            <div>
+                                <p class="text-indigo-300 text-sm font-medium uppercase leading-4">Employees</p>
+                                <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
+                                    <span>015</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-black/60 p-6 rounded-lg">
+                        <div class="flex flex-row space-x-4 items-center">
+                            <div id="stats-2">
+                                <i class="bi bi-geo text-3xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-teal-300 text-sm font-medium uppercase leading-4">Locations</p>
+                                <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
+                                    <span>004</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-black/60 p-6 rounded-lg">
+                        <div class="flex flex-row space-x-4 items-center">
+                            <div id="stats-3">
+                                <i class="bi bi-calendar2-day text-3xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-blue-300 text-sm font-medium uppercase leading-4">Present Today</p>
+                                <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
+                                    <span>008</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="leave-request">
+                <h1 class="font-bold py-4 uppercase">Leave Requests</h1>
+                <div class="overflow-x-scroll">
+                    <table class="w-full whitespace-nowrap">
+                        <thead class="bg-black/60">
+                            <th class="text-left py-3 px-2 rounded-l-lg">Name</th>
+                            <th class="text-left py-3 px-2">Email</th>
+                            <th class="text-left py-3 px-2">Days off</th>
+                            <th class="text-left py-3 px-2">Starting</th>
+                            <th class="text-left py-3 px-2 rounded-r-lg">Actions</th>
+                        </thead>
+                        <tr class="border-b border-gray-700">
+                            <td class="py-3 px-2 font-bold">
+                                         <span>Thai Mei</span>
+                            </td>
+                            <td class="py-3 px-2">thai.mei@abc.com</td>
+                            <td class="py-3 px-2">20</td>
+                            <td class="py-3 px-2">Mon, 20/08/2023</td>
+                            <td class="py-3 px-2">
+                                <div class="inline-flex items-center space-x-3">
+                                    <a href="" title="Email {name here}" class="hover:text-white flex item-center justify-center">
+                                        <i class="bi bi-envelope-at text-lg m-0 p-0"></i>
+                                    </a>
+                                    <a href="" title="Mark as resolved" class="hover:text-white flex item-center justify-center">
+                                        <i class="bi bi-check-all text-lg m-0 p-0"></i>
+                                      </a>
+                                    <a href="" title="Delete this request" class="hover:text-white  flex item-center justify-center">
+                                        <i class="bi bi-trash text-lg m-0 p-0"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

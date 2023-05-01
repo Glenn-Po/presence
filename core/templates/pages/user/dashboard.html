@@ -15,21 +15,24 @@
         </div>
         <div class="flex px-5 py-10 rounded-lg flex-col items-center justify-between text-secondary" style="background-color: #00000066">
             <h2 class="text-4xl my-5 font-bold">Welcome, {{user.profile.name}}</h2>
-            <p class="text-neutral-100 mb-5">Complete your clocking routine</p>
-            <p id="date-display "
+            <p class="text-neutral-100 mb-5">You haven't clock in yet. You clocked in at 7:00 AM</p>
+            <p id="date-display"
                class="text-neutral-200 font-bold"
-            >Friday, 12 May 2023.</p>
-            <h1 id="time-display inline-block"
-                class="text-6xl my-5 font-black"
-            >1:00:00</h1>
+            ></p>
+            <h1 id="time-display"
+                class="text-5xl my-5 font-black"
+            ></h1>
 
-            <div class="flex w-100 items-center justify-between">
+            <div class="flex w-full items-center justify-between px-5">
+                {% if False %}
                 <a href="/employee/clock?type=CI"
                    class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
                 >Clock In</a>
+                {% else %}
                 <a href="/employee/clock?type=CO"
-                   class="px-5 py-2 bg-white text-neutral-600 mx-4 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
-                >Clock In</a>
+                   class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
+                >Clock Out</a>
+                {% endif %}
                 <a href="/employee/request-leave"
                 class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
                 >Request Leave</a>
@@ -37,5 +40,18 @@
         </div>
     </div>
 </section>
+
+<script >
+    const dateDisplay = $('#date-display')
+    const timeDisplay = $('#time-display')
+
+    const updateDateAndTime = ()=>{
+        dateDisplay.html(moment().format("dddd, MMMM DD yyyy"))
+        timeDisplay.html(moment().format("hh:mm:ss A"))
+        console.log("chaned")
+    }
+    setInterval(updateDateAndTime, 700)
+
+</script>
 
 {% endblock %}
