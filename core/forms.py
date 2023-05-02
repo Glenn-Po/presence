@@ -1,9 +1,11 @@
 from django import forms
 
+from core.models import Location
+
 
 class AttendanceForm(forms.Form):
-    latitude = forms.DecimalField(max_digits=8, decimal_places=4)
-    longitude = forms.DecimalField(max_digits=8, decimal_places=4)
+    latitude = forms.DecimalField(max_digits=20, decimal_places=8)
+    longitude = forms.DecimalField(max_digits=20, decimal_places=8)
     code = forms.CharField(max_length=128)
 
 
@@ -21,10 +23,9 @@ class EmployeeForm(forms.Form):
 
 
 class LocationForm(forms.ModelForm):
-    name = forms.CharField(max_length=255)
-    radius = forms.IntegerField()
-    latitude = forms.DecimalField(max_digits=8, decimal_places=4)
-    longitude = forms.DecimalField(max_digits=8, decimal_places=4)
+    class Meta:
+        model = Location
+        fields = ("name", "radius", "latitude", "longitude")
 
 # class LeaveRequest(forms.ModelForm):
 #     employee = models.ForeignKey(

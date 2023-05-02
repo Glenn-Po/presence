@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import configparser
 from pathlib import Path
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -26,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1qj!u+@qquwz0h(lj6iq=@jq&(4@%*af3g-z#1ej5xss8dm(8a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("DEBUG"))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app']
 
 
 # Application definition
@@ -79,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'presence.wsgi.application'
+WSGI_APPLICATION = os.getenv("WSGI_APPLICATION")
 
 
 # Database
@@ -89,6 +90,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_psdb_engine',
+        'NAME': os.environ.get('PLANETSCALE_DB_NAME'),
+        'HOST': os.environ.get('PLANETSCALE_DB_HOST'),
+        'PORT': os.environ.get('PLANETSCALE_DB_PORT'),
+        'USER': os.environ.get('PLANETSCALE_DB_USER'),
+        'PASSWORD': os.environ.get('PLANETSCALE_DB_PASSWORD'),
+        'OPTIONS': {'ssl': {'ca': os.environ.get('MYSQL_ATTR_SSL_CA')}}
     }
 }
 

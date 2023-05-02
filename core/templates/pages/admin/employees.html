@@ -16,7 +16,7 @@
       <p class="text-slate-400 text-sm mb-2">Welcome back,</p>
       <a
         href="#"
-        class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
+        class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-0 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
       >
         <div>
           <i class="bi bi-person-circle text-white text-4xl"></i>
@@ -27,6 +27,12 @@
           </p>
           <span class="text-xs text-slate-400">CIMARA Ltd</span>
         </div>
+      </a>
+      <a
+        href="{% url 'logout' %}"
+        class=" bg-slate-100 text-slate-800 text-md font-medium px-10 py-2 rounded self-center mx-auto mb-2 w-full"
+      >
+        Logout
       </a>
       <hr class="my-2 border-slate-700" />
 
@@ -144,9 +150,9 @@
           </a>
         </div>
 
-        <div class="overflow-x-scroll">
+        <div class="overflow-x-scroll h-72 overflow-y-scroll">
           <table class="w-full whitespace-nowrap">
-            <thead class="bg-black/60 overflow-x-scroll">
+            <thead class="bg-black/60 overflow-x-scroll sticky top-0">
               <th class="text-left py-3 px-2 rounded-l-lg">#</th>
               <th class="text-left py-3 px-2">Name</th>
               <th class="text-left py-3 px-2">Role</th>
@@ -156,39 +162,54 @@
               <th class="text-left py-3 px-2">Tel</th>
               <th class="text-left py-3 px-2">Address</th>
             </thead>
+            {%for employee in employees%}
             <tr class="border-b border-gray-700">
-              <td class="py-3 px-2 font-bold">1</td>
-              <td class="py-3 px-2 font-bold">Liam Nesson</td>
-              <td class="py-3 px-2">UI/Ux Designer</td>
+              <td class="py-3 px-2 font-bold">{{forloop.counter}}</td>
+              <td class="py-3 px-2 font-bold">
+              {{employee.profile.name}}
+
+              {% if employee.profile.is_manager %}
+              <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
+                Admin
+              </span>
+              {% endif %}
+              </td>
+              <td class="py-3 px-2">
+              {{employee.profile.role}}
+              </td>
+      
               <td class="py-3 px-2">
                 <div class="inline-flex items-center space-x-3">
                   <a
-                    href=""
-                    title="Message {employee name}"
+                    href="mailto:{{employee.email}}"
+                    title="Message {{ employee.profile.name }}"
                     class="hover:text-white flex item-center justify-center"
                   >
                     <i class="bi bi-envelope text-lg m-0 p-0"></i>
                   </a>
                   <a
-                    href=""
-                    title="View {e names}'s profile"
+                    href="{% url 'admin_dashboard_employees_view' employee.id %}"
+                    title="View {{ employee.profile.name }}'s profile"
                     class="hover:text-white flex item-center justify-center"
                   >
                     <i class="bi bi-eye text-lg m-0 p-0"></i>
                   </a>
                   <a
-                    href=""
-                    title="Delete {e name's} account"
+                    href="{% url 'admin_dashboard_employees_delete' employee.id %}"
+                    title="Delete {{ employee.profile.name }} account"
                     class="hover:text-red-900 text-gray-100 flex item-center justify-center"
                   >
                     <i class="bi bi-trash text-lg m-0 p-0"></i>
                   </a>
                 </div>
               </td>
-              <td class="py-3 px-2">12/12/2012</td>
-              <td class="py-3 px-2">liam@cimara.com</td>
-              <td class="py-3 px-2">+1 (567) 89563</td>
-              <td class="py-3 px-2">New town, Limbe, CMR.</td>
+              <td class="py-3 px-2">
+                {{employee.profile.start_date|date:'D, d M Y'}}
+              </td>
+              <td class="py-3 px-2">{{employee.email}}</td>
+              <td class="py-3 px-2">{{employee.profile.telephone}}</td>
+              <td class="py-3 px-2">{{employee.profile.address}}</td>
+              {% endfor %}
             </tr>
           </table>
         </div>

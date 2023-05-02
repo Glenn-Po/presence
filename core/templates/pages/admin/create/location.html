@@ -1,4 +1,7 @@
-{% extends 'components/base.html' %} {% load static %} {% block body %}
+{% extends 'components/base.html' %}
+{% load custom_tags %} 
+{% load static %} 
+{% block body %}
 
 <div
   class="antialiased w-full min-h-screen text-slate-300 relative py-4 bg-primary"
@@ -141,7 +144,8 @@
         </a>
       </div>
 
-      <form class="overflow-x-hidden mb-5 px-2">
+      <form class="overflow-x-hidden mb-5 px-2" method="POST">
+        {% csrf_token %}
         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
           <div>
             <label class="text-white dark:text-gray-200" for="name"
@@ -161,7 +165,7 @@
               >Radius of the premises</label
             >
             <input
-              id="emailAddress"
+              id="radius"
               type="number"
               min="50"
               max="5000"
@@ -178,6 +182,10 @@
             <input
               id="latitude"
               type="number"
+              min="-90"
+              step="0.00000001"
+              max="90"
+              name="latitude"
               placeholder="Ex: 87.9876"
               class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             />
@@ -190,11 +198,55 @@
             <input
               id="longitude"
               type="number"
+              min="-180"
+              step="0.00000001"
+              max="180"
+              name="longitude"
               placeholder="Ex: 34.9748"
               class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             />
           </div>
         </div>
+        {% if messages %}
+        <ul class="my-0 w-full mx-6">
+          {% for message in messages %}
+          <li>
+            {% if message.tags|nth_split:0 == 'error' %}
+            <span
+              class="my-1 rounded-lg bg-red-100 px-6 py-3 text-sm text-red-800"
+              role="alert"
+              >{{ message }}
+            </span>
+            {%elif message.tags|nth_split:0 == 'success' %}
+            <span
+              class="my-1 rounded-lg bg-green-100 px-6 py-3 text-sm text-green-600"
+              role="alert"
+              >{{ message }}
+            </span>
+            {% elif message.tags|nth_split:0 == 'warning' %}
+            <span
+              class="my-1 rounded-lg bg-yellow-100 px-6 py-3 text-sm text-yellow-600"
+              role="alert"
+              >{{ message }}
+            </span>
+            {% elif message.tags|nth_split:0 == 'info' %}
+            <span
+              class="my-1 rounded-lg bg-sky-100 px-6 py-3 text-sm text-sky-600"
+              role="alert"
+              >{{ message }}
+            </span>
+            {%else%}
+            <span
+              class="my-1 rounded-lg bg-gray-100 px-6 py-3 text-sm text-gray-600"
+              role="alert"
+            >
+              {{ message }} {{ message.tags }}
+            </span>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
 
         <div class="flex items-center justify-center my-6 mx-auto w-full">
           <button

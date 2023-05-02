@@ -1,5 +1,8 @@
-{% extends 'components/base.html' %} {% load static %} {% block title%}
-{{user.profile.name}}'s profile {% endblock %} {% block body %}
+{% extends 'components/base.html' %} 
+{% load custom_tags %} 
+{% load static %} 
+{% block title %} {{ user.profile.name  }}'s Dashboad {% endblock title %}
+{% block body %}
 
 <section class="bg-primary h-screen w-full flex items-center justify-center">
   <div class="container w-auto h-auto">
@@ -9,38 +12,56 @@
         src="{% static 'images/logo-wide.png' %}"
         alt="logo"
       />
-      <h4 class="mb-12 mt-1 pb-1 text-xl font-semibold">Presence</h4>
+      <h4 class="mb-12 mt-1 pb-1 text-xl font-semibold text-accent-light">
+        Presence
+      </h4>
     </div>
     <div
       class="flex px-5 py-10 rounded-lg flex-col items-center justify-between text-secondary"
-      style="background-color: #00000066"
+      style="background-color: rgba(247, 239, 164, 0.2)"
     >
-      <h2 class="text-4xl my-5 font-bold">Welcome, {{user.profile.name}}</h2>
-      <p class="text-neutral-100 mb-5">
-        {% if clocked_in_state is None %} You have already clocked in for today
-        {% endif %} {% if clocked_in_state %} You clocked in at {{
-        attendance.clock_in_time }} {% else %} You haven't clock in for today
-        yet. {% endif %}
-      </p>
+      <h2 class="text-4xl mt-4 mb-2 font-bold">
+        Welcome, {{user.profile.name}}.
+      </h2>
+      <a
+        href="{% url 'logout' %}"
+        class="bg-slate-100 text-slate-800 mb-2 text-xs mr-2 px-6 py-0.5 rounded flex items-center justify-center"
+      >
+        Logout
+      </a>
+      <p class="text-neutral-100 mb-2 text-center">
+        {% if clocked_in_state != 'BOTH'  %} 
+          You have already clocked in for today <br>
+          Workday: {{ attendance.clock_in_time  }} - {{ attendance.clock_out_time }}
+        {% elif clocked_in_state == 'IN_ONLY' %} 
+          You clocked in at 
+          <span class="bg-gray-700 inline-block text-gray-100 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">
+          {{ attendance.clock_in_time }}
+          </span>
+        {% else %}
+          You haven't clock in for today yet.
+        {% endif %}
+       </p>
       <p id="date-display" class="text-neutral-200 font-bold"></p>
       <h1 id="time-display" class="text-5xl my-5 font-black"></h1>
 
-      <div class="flex w-full items-center justify-between px-5">
-        {% if clocked_in_state is not None %} {% if clocked_in_state %}
+      <div class="flex w-full items-center justify-around px-5">
+      {% if clocked_in_state != 'BOTH' %} 
+        {% if clocked_in_state == 'NONE' %}
+          <a
+            href="{% url 'user_clock_action' %}"
+            class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
+            >Clock In</a
+          >
+        {% endif %}
+          <a
+            href="{% url 'user_clock_action' %}"
+            class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
+            >Clock Out</a
+          >
+      {% endif %} 
         <a
-          href="{% url 'user_clock_action' %}"
-          class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
-          >Clock In</a
-        >
-        {% else %}
-        <a
-          href="{% url 'user_clock_action' %}"
-          class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
-          >Clock Out</a
-        >
-        {% endif %} {% endif %}
-        <a
-          href="{% url 'request_leave'%}"
+          href="{% url 'request_leave' %}"
           class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
           >Request Leave</a
         >
@@ -56,9 +77,8 @@
   const updateDateAndTime = () => {
     dateDisplay.html(moment().format("dddd, MMMM DD yyyy"));
     timeDisplay.html(moment().format("hh:mm:ss A"));
-    console.log("chaned");
   };
-  setInterval(updateDateAndTime, 700);
+  setInterval(updateDateAndTime, 1000);
 </script>
 
 {% endblock %}

@@ -1,4 +1,7 @@
-{% extends 'components/base.html' %} {% load static %} {% block body %}
+{% extends 'components/base.html' %} 
+{% load custom_tags %}
+{% load static %} 
+{% block body %}
 
 <div
   class="antialiased w-full min-h-screen text-slate-300 relative py-4 bg-primary"
@@ -16,7 +19,7 @@
       <p class="text-slate-400 text-sm mb-2">Welcome back,</p>
       <a
         href="#"
-        class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
+        class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-0 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
       >
         <div>
           <i class="bi bi-person-circle text-white text-4xl"></i>
@@ -27,6 +30,12 @@
           </p>
           <span class="text-xs text-slate-400">CIMARA Ltd</span>
         </div>
+      </a>
+      <a
+        href="{% url 'logout' %}"
+        class=" bg-slate-100 text-slate-800 text-md font-medium px-10 py-2 rounded self-center mx-auto mb-2 w-full"
+      >
+        Logout
       </a>
       <hr class="my-2 border-slate-700" />
 
@@ -141,7 +150,11 @@
         </a>
       </div>
 
-      <form class="overflow-y-scroll overflow-x-hidden h-full mb-5 px-2">
+      <form
+        method="POST"
+        class="overflow-y-scroll overflow-x-hidden h-full mb-5 px-2"
+      >
+        {% csrf_token %}
         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
           <div>
             <label class="text-white dark:text-gray-200" for="username"
@@ -151,6 +164,7 @@
               id="username"
               type="text"
               name="name"
+              required
               class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             />
           </div>
@@ -160,6 +174,7 @@
               >Email Address</label
             >
             <input
+              required
               id="emailAddress"
               type="email"
               name="email"
@@ -172,6 +187,8 @@
               >Password</label
             >
             <input
+              required
+              name="password"
               id="password"
               type="password"
               class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -179,11 +196,13 @@
           </div>
           <div>
             <label
+              required
               class="text-white dark:text-gray-200"
               for="passwordConfirmation"
               >Password Confirmation</label
             >
             <input
+              required
               id="passwordConfirmation"
               name="cpassword"
               type="password"
@@ -193,6 +212,7 @@
           <div>
             <label class="text-white dark:text-gray-200" for="role">Role</label>
             <input
+              required
               id="role"
               type="text"
               name="role"
@@ -205,6 +225,7 @@
               >Start Date</label
             >
             <input
+              required
               id="start_date"
               type="date"
               name="start_date"
@@ -216,6 +237,7 @@
               >Date of Birth</label
             >
             <input
+              required
               id="dob"
               type="date"
               name="dob"
@@ -227,6 +249,7 @@
               >Telephone</label
             >
             <input
+              required
               id="tel"
               type="tel"
               name="telephone"
@@ -238,8 +261,9 @@
               >Address</label
             >
             <input
+              required
               id="addr"
-              type="date"
+              type="text"
               name="address"
               class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             />
@@ -256,6 +280,47 @@
             />
           </div>
         </div>
+
+        {% if messages %}
+        <ul class="my-0 w-full mx-6">
+          {% for message in messages %}
+          <li>
+            {% if message.tags|nth_split:0 == 'error' %}
+            <span
+              class="my-1 rounded-lg bg-red-100 px-6 py-3 text-sm text-red-800"
+              role="alert"
+              >{{ message }}
+            </span>
+            {%elif message.tags|nth_split:0 == 'success' %}
+            <span
+              class="my-1 rounded-lg bg-green-100 px-6 py-3 text-sm text-green-600"
+              role="alert"
+              >{{ message }}
+            </span>
+            {% elif message.tags|nth_split:0 == 'warning' %}
+            <span
+              class="my-1 rounded-lg bg-yellow-100 px-6 py-3 text-sm text-yellow-600"
+              role="alert"
+              >{{ message }}
+            </span>
+            {% elif message.tags|nth_split:0 == 'info' %}
+            <span
+              class="my-1 rounded-lg bg-sky-100 px-6 py-3 text-sm text-sky-600"
+              role="alert"
+              >{{ message }}
+            </span>
+            {%else%}
+            <span
+              class="my-1 rounded-lg bg-gray-100 px-6 py-3 text-sm text-gray-600"
+              role="alert"
+            >
+              {{ message }} {{ message.tags }}
+            </span>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
 
         <div class="flex justify-center my-6">
           <button
@@ -346,5 +411,30 @@
     </div>
   </div>
 </div>
-
+<script>
+const toastOptions = {
+    status: 'success',
+    title: 'Success',
+    text: 'Notify text lorem ipsum',
+    effect: 'fade',
+    speed: 300,
+    customClass: '',
+    customIcon: '',
+    showIcon: true,
+    showCloseButton: true,
+    autoclose: true,
+    autotimeout: 3000,
+    gap: 20,
+    distance: 20,
+    type: 1,
+    position: 'right top'
+  } 
+{% if form.errors %}
+    {% for field in form%}
+      {% if field.errors%}
+        new Notify ({...toastOptions, 'status': 'error','title': "{{ field.name|upper }}", 'text': "{{ field.errors.0 }}"})
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+</script>
 {% endblock %}

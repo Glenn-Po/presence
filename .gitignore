@@ -1,6 +1,7 @@
 #custom
 .idea
 .env
+.log
 
 
 # Byte-compiled / optimized / DLL files

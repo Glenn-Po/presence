@@ -3,9 +3,15 @@
 <main class="bg-primary h-screen w-full p-5 flex items-center justify-center">
   <div class="container p-6 rounded-lg flex flex-row bg-primary-light wrap">
     <div
-      class="flex-1 h-100 p-10 flex items-center justify-center"
+      class="relative flex-1 h-100 p-10 flex items-center justify-center"
       style="min-width: 200px"
     >
+      <a
+        href="{% url 'logout' %}"
+        class="absolute right-0 top-0 bg-slate-100 text-slate-800 text-md font-medium px-10 py-2 rounded"
+      >
+        Logout
+      </a>
       <ol class="relative text-gray-500 dark:text-gray-400">
         <li class="mb-10 ml-6">
           <span
@@ -15,9 +21,9 @@
           </span>
           <h3 class="font-medium leading-tight">Permissions</h3>
           <p class="text-sm">
-            Grant permissions for location when prompted. Click on request
-            camera permission on and grant camera permissions when you are
-            prompted.
+            Grant permissions for location when prompted. On the right, ClickTap
+            on request camera permission and the grant camera permissions when
+            you are prompted.
           </p>
         </li>
         <li class="mb-10 ml-6">
@@ -28,13 +34,12 @@
           </span>
           <h3 class="font-medium leading-tight">Scan the Code</h3>
           <p class="text-sm">
-            Point your camera at the code and make sure it is in view and
             click/tap
             <span
               class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded"
             >
-              start scanning
-            </span>
+              start scanning </span
+            >. Point your camera at the code and make sure it is in view.
           </p>
         </li>
         <li class="ml-6 mb-0">
@@ -52,11 +57,26 @@
             >
               Finish clocking
             </span>
+            to complete the process. You will be notified if successful.
           </p>
         </li>
       </ol>
     </div>
     <div class="flex-1 h-100 p-10 min-w-100" style="min-width: 350px">
+      <div id="clock-complete" class='hidden w-full h-full justify-between items-center'>
+        <img src="{% static 'images/logo-square.png' %}" 
+            class="w-20 animate-spin m-2"
+            style="animation-duration: 5s;"
+        />
+        <h3 class="text-md font-bold text-secondary text-center my-2"> CIMARA thanks your for being a loyal employee <h3/>
+          <a
+          href="{% url 'user_dashboard' %}"
+          class="block my-2  bg-slate-100 text-slate-800 text-md font-medium px-10 py-2 rounded hover:translate-y-[-2px] transition-transform"
+          >
+          <i class="bi bi-arrow-left"></i>
+          Return to Dashbaord
+        </a>
+      </div>
       <div
         id="qr-reader"
         class="border-none color-white"
@@ -67,7 +87,9 @@
           border-radius: 8px !important;
           overflow: hidden !important;
         "
-      ></div>
+      >
+      
+    </div>
 
       <div id="success" class="hidden flex-col items-center justify-center">
         <i class="bi bi-check2-circle text-9xl text-white m-5"> </i>
@@ -86,7 +108,7 @@
 <style>
   /* qr code styles*/
   #qr-reader__dashboard {
-    background-color: #45aa67;
+    background-color: #f7e933;
   }
   #qr-reader__dashboard_section__stop_scanning {
     background-color: red;
@@ -107,28 +129,59 @@
 </style>
 
 <script>
-  let data = new FormData();
+  //display any form errors
+  const toastOptions = {
+    status: 'success',
+    title: 'Success',
+    text: 'Notify text lorem ipsum',
+    effect: 'fade',
+    speed: 300,
+    customClass: '',
+    customIcon: '',
+    showIcon: true,
+    showCloseButton: true,
+    autoclose: true,
+    autotimeout: 3000,
+    gap: 20,
+    distance: 20,
+    type: 1,
+    position: 'right top'
+  }
+  {% comment %} {% if form.errors %}
+    {% for field in form%}
+      {% if field.errors%}
+        new Notify ({...toastOptions, 'status': 'error','title': "{{ field.name|upper }}", 'text': "{{ field.errors.0 }}"})
+      {% endif %}
+    {% endfor %}
+  {% endif %} {% endcomment %}
+  let formData = new FormData();
   let html5QrcodeScanner;
 
   const registerAttendance = async function(){
-      fetch(`${window.location.origin}/employee/dashboard/clock`, {
-              body: JSON.stringify(data),
-              method: "POST"
-              }
-          ).then((res)=>res.json()).then(
-            data=>{
-              if(data.success){
-                alert(data.message)
-              }else{
-                alert(data.message)
-              }
-            }
-          ).catch((error)=>alert("Failed form submission: "+error.message))
+      let url = `${window.location.origin}/employee/dashboard/clock`
+      console.log(url)
+      console.log(Object.fromEntries(formData));
+      try{
+        const response = await axios.post(url, formData,{headers: {'Content-Type': 'multipart/form-data'}})
+        const data = response.data
+        if(data.success){
+          new Notify ({...toastOptions, 'title': 'Clocking Sucess', 'text': data.message })
+          $('#success').remove()
+          $('#clock-complete').removeClass('hidden').addClass("flex flex-col")
+        }
+        else //actually display the clocking error
+          new Notify ({...toastOptions, 'status': 'error','title': 'Clocking failed', 'text': data.message })
+      }catch(error){
+        console.log({error})
+        console.log(error.message)
+          new Notify ({...toastOptions, 'status': 'error','title': 'Post error', 'text': "Your form was not sent. Refresh and try again"})
+      }
   }
   const onScanSuccess = function(code){
-      data.set("code", code)
-      html5QrcodeScanner.clear()
-      $('#success').removeClass('hidden').addClass('flex')
+    console.log(code)
+    formData.set("code", code)
+    html5QrcodeScanner.clear()
+    $('#success').removeClass('hidden').addClass('flex')
   }
   const scanCode = function(){
       html5QrcodeScanner = new Html5QrcodeScanner(
@@ -141,15 +194,17 @@
   window.navigator.geolocation.getCurrentPosition(
     (position)=>{
         const {latitude, longitude} = position.coords
-        data.set("longitude", longitude)
-        data.set("latitude", latitude)
+        formData.set("longitude", longitude)
+        formData.set("latitude", latitude)
     },
     (error)=>{
+      alert(error.message || error)
         console.log(error.message || error)
+        alert("Refresh this page and set permissions")
     }
   )
 
-  console.log(data)
+  console.log(formData)
 
   scanCode()
 </script>

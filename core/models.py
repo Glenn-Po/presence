@@ -7,18 +7,22 @@ class Location(models.Model):
     name = models.CharField(max_length=128, blank=False, null=False)
     code = models.CharField(max_length=128, unique=True, editable=False)
     latitude = models.DecimalField(
-        max_digits=8, decimal_places=4, blank=False, null=False)
+        max_digits=20, decimal_places=8, blank=False, null=False)
     longitude = models.DecimalField(
-        max_digits=8, decimal_places=4, blank=False, null=False)
+        max_digits=20, decimal_places=8, blank=False, null=False)
     radius = models.IntegerField(default=100, blank=False, null=False)
     qr_code_url = models.TextField(max_length=1024, blank=False, null=False)
+
+    def __str__(self):
+        return "Location({}, {}, ({}, {}, r={}), {})" \
+            .format(self.name, self.code, self.latitude, self.longitude, self.radius, self.qr_code_url)
 
 
 class Attendance(models.Model):
     location = models.ForeignKey(
         Location, related_name='attendance', on_delete=models.CASCADE)
     employee = models.ForeignKey(
-        CustomUser, related_name='attendance2', on_delete=models.CASCADE)
+        CustomUser, related_name='attendance', on_delete=models.CASCADE)
     date = models.DateField(auto_now=True, null=False)
     clock_in_time = models.TimeField(auto_now=True, null=False)
     # forgetting to clock out is a thing

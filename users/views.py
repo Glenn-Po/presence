@@ -11,9 +11,9 @@ def login_view(request):
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 login(request, user)
-                if user.profile__is_manager:
-                    return redirect('manager/dashboard')
-                return redirect('employee/dashboard')
+                if user.profile.is_manager:
+                    return redirect('/manager/dashboard')
+                return redirect('/employee/dashboard')
             else:
                 error = 'Invalid email or password'
         else:

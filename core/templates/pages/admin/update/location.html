@@ -141,7 +141,8 @@
         </a>
       </div>
 
-      <form class="overflow-x-hidden mb-5 px-2">
+      <form method="POST" class="overflow-x-hidden mb-5 px-2">
+        {% csrf_token %}
         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
           <div>
             <label class="text-white dark:text-gray-200" for="name"
@@ -179,6 +180,7 @@
             <input
               id="latitude"
               type="number"
+              step="0.00000001"
               value="{{ location.latitude }}"
               placeholder="Ex: 87.9876"
               class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -192,6 +194,7 @@
             <input
               id="longitude"
               type="number"
+              step="0.00000001"
               value="{{location.longitude}}"
               placeholder="Ex: 34.9748"
               class="inline-block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"

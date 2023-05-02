@@ -14,11 +14,11 @@
         Dashboard<span class="text-indigo-400">.</span>
       </h1>
       <p class="text-slate-400 text-sm mb-2">
-        Welcome back, {{user.profile__name}}
+        Welcome back, {{user.profile.name}}
       </p>
       <a
         href="#"
-        class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
+        class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-0 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
       >
         <div>
           <i class="bi bi-person-circle text-white text-4xl"></i>
@@ -29,6 +29,12 @@
           </p>
           <span class="text-xs text-slate-400">CIMARA Ltd</span>
         </div>
+      </a>
+      <a
+        href="{% url 'logout' %}"
+        class=" bg-slate-100 text-slate-800 text-md font-medium px-10 py-2 rounded self-center mx-auto mb-2 w-full"
+      >
+        Logout
       </a>
       <hr class="my-2 border-slate-700" />
 
@@ -210,20 +216,20 @@
 
       <div id="leave-request">
         <h1 class="font-bold py-4 uppercase">Leave Requests</h1>
-        <div class="overflow-x-scroll">
+        <div class="overflow-x-scroll h-72 overflow-y-scroll">
           <table class="w-full whitespace-nowrap">
-            <thead class="bg-black/60">
+            <thead class="bg-black/60 sticky top-0">
               <th class="text-left py-3 px-2 rounded-l-lg">Name</th>
               <th class="text-left py-3 px-2">Email</th>
               <th class="text-left py-3 px-2">Days off</th>
               <th class="text-left py-3 px-2">Starting</th>
               <th class="text-left py-3 px-2 rounded-r-lg">Actions</th>
             </thead>
-
+            <tbody >
             {% for req in leave_requests %}
             <tr class="border-b border-gray-700">
               <td class="py-3 px-2 font-bold">
-                <span>{{req.user.profile__name}}</span>
+                <span>{{req.user.profile.name}}</span>
               </td>
               <td class="py-3 px-2">{{req.user.email}}</td>
               <td class="py-3 px-2">{{req.days_off}}</td>
@@ -232,7 +238,7 @@
                 <div class="inline-flex items-center space-x-3">
                   <a
                     href="mailto:{{req.user.email}}"
-                    title="Email {{ req.user.profile__name }}"
+                    title="Email {{ req.user.profile.name }}"
                     class="hover:text-white flex item-center justify-center"
                   >
                     <i class="bi bi-envelope-at text-lg m-0 p-0"></i>
@@ -249,6 +255,7 @@
               </td>
             </tr>
             {% endfor %}
+            </tbody>
           </table>
         </div>
       </div>

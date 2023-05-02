@@ -14,11 +14,11 @@
         Dashboard<span class="text-indigo-400">.</span>
       </h1>
       <p class="text-slate-400 text-sm mb-2">
-        Welcome back,{{user.proile__name}}
+        Welcome back,{{user.proile.name}}
       </p>
       <a
         href="#"
-        class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
+        class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-0 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
       >
         <div>
           <i class="bi bi-person-circle text-white text-4xl"></i>
@@ -29,6 +29,12 @@
           </p>
           <span class="text-xs text-slate-400">CIMARA Ltd</span>
         </div>
+      </a>
+      <a
+        href="{% url 'logout' %}"
+        class=" bg-slate-100 text-slate-800 text-md font-medium px-10 py-2 rounded self-center mx-auto mb-2 w-full"
+      >
+        Logout
       </a>
       <hr class="my-2 border-slate-700" />
 
@@ -134,11 +140,10 @@
 
       <div id="attendances">
         <h1 class="font-bold py-4 uppercase">Employee Attendances</h1>
-        <div class="overflow-x-scroll">
+        <div class="overflow-x-scroll h-72 overflow-y-scroll">
           <table class="w-full whitespace-nowrap">
-            <thead class="bg-black/60 overflow-x-scroll">
+            <thead class="bg-black/60 overflow-x-scroll sticky top-0">
               <th class="text-left py-3 px-2 rounded-l-lg">#</th>
-              <th class="text-left py-3 px-2">Clock Status</th>
               <th class="text-left py-3 px-2">Employee</th>
               <th class="text-left py-3 px-2">Location</th>
               <th class="text-left py-3 px-2">Action</th>
@@ -146,39 +151,35 @@
               <th class="text-left py-3 px-2">Clocked in at</th>
               <th class="text-left py-3 px-2">Clocked out at</th>
             </thead>
+            {% for attendance in attendances %}
             <tr class="border-b border-gray-700">
-              <td class="py-3 px-2 font-bold">1</td>
-              <td class="py-3 px-2 font-bold">
-                <span
-                  class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded bg-accent"
-                >
-                  Error
-                </span>
-              </td>
-              <td class="py-3 px-2 font-bold">Liam Nesson</td>
-              <td class="py-3 px-2">Bonaberi, Douala.</td>
+              <td class="py-3 px-2 font-bold">{{forloop.counter}}</td>
+        
+              <td class="py-3 px-2 font-bold">{{attendance.employee.profile.name}}</td>
+              <td class="py-3 px-2">{{attendance.location.name}}</td>
               <td class="py-3 px-2">
                 <div class="inline-flex items-center space-x-3">
                   <a
-                    href=""
-                    title="View {e names}'s profile"
+                    href="{% url 'admin_dashboard_employees_view' attendance.employee.id %}"
+                    title="View {{ attendance.employee.profile.name}}'s profile"
                     class="hover:text-white flex item-center justify-center"
                   >
                     <i class="bi bi-eye text-lg m-0 p-0"></i>
                   </a>
                   <a
-                    href=""
-                    title="View  {e name's} attendance on Calendar"
+                    href="{% url 'admin_dashboard_attendances_filter_employee' attendance.employee.id %}"
+                    title="View  {{ attendance.employee.profile.name}}'s attendance on Calendar"
                     class="hover:text-white flex item-center justify-center"
                   >
                     <i class="bi bi-calendar-check text-lg m-0 p-0"></i>
                   </a>
                 </div>
               </td>
-              <td class="py-3 px-2">12/12/2012</td>
-              <td class="py-3 px-2">7:30 AM</td>
-              <td class="py-3 px-2">5:00 PM</td>
+              <td class="py-3 px-2">{{attendance.date|date:'D, d M Y'}}</td>
+              <td class="py-3 px-2">{{attendance.clock_in_time}}</td>
+              <td class="py-3 px-2">{{attendance.clock_out_time}}</td>
             </tr>
+            {% endfor %}
           </table>
         </div>
       </div>
