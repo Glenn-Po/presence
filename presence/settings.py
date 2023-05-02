@@ -28,10 +28,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DEBUG"))
-ALLOWED_HOSTS = ['*']
-# , 'https://7ef4-129-0-79-198.ngrok-free.app', 'https://56fe-129-0-79-198.ngrok-free.app', '56fe-129-0-79-198.ngrok-free.app',
-#                  'localhost', '127.0.0.1', '.vercel.app']
-CSRF_TRUSTED_ORIGINS = ['https://db19-129-0-79-198.ngrok-free.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*.vercel.app', '.now.sh']
+CSRF_TRUSTED_ORIGINS = [
+    'https://db19-129-0-79-198.ngrok-free.app', 'https://*.vercel.app']
 
 # Application definition
 
@@ -87,24 +86,24 @@ WSGI_APPLICATION = os.getenv("WSGI_APPLICATION")
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django_psdb_engine',
-#         'NAME': os.environ.get('PLANETSCALE_DB_NAME'),
-#         'HOST': os.environ.get('PLANETSCALE_DB_HOST'),
-#         'PORT': os.environ.get('PLANETSCALE_DB_PORT'),
-#         'USER': os.environ.get('PLANETSCALE_DB_USER'),
-#         'PASSWORD': os.environ.get('PLANETSCALE_DB_PASSWORD'),
-#         'OPTIONS': {'ssl': {'ca': os.environ.get('MYSQL_ATTR_SSL_CA')}}
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_psdb_engine',
+        'NAME': os.environ.get('PLANETSCALE_DB_NAME'),
+        'HOST': os.environ.get('PLANETSCALE_DB_HOST'),
+        'PORT': os.environ.get('PLANETSCALE_DB_PORT'),
+        'USER': os.environ.get('PLANETSCALE_DB_USER'),
+        'PASSWORD': os.environ.get('PLANETSCALE_DB_PASSWORD'),
+        'OPTIONS': {'ssl': {'ca': os.environ.get('MYSQL_ATTR_SSL_CA')}}
+    }
+}
 
 
 # Password validation
@@ -142,6 +141,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
