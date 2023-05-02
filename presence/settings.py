@@ -101,7 +101,7 @@ DATABASES = {
         'PORT': os.environ.get('PLANETSCALE_DB_PORT'),
         'USER': os.environ.get('PLANETSCALE_DB_USER'),
         'PASSWORD': os.environ.get('PLANETSCALE_DB_PASSWORD'),
-        'OPTIONS': {'ssl': {'ca': os.environ.get('MYSQL_ATTR_SSL_CA')}}
+        'OPTIONS': {'charset': 'utf8mb4', 'ssl': {'ca': os.environ.get('MYSQL_ATTR_SSL_CA')}}
     }
 }
 
