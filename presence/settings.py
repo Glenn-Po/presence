@@ -143,7 +143,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-
+MEDIA_ROOT = '/media/'
+MEDIA_URL = os.path.join(BASE_DIR, 'media/')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -151,7 +152,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # custom
-NPM_BIN_PATH = r'C:\js\nodejs\npm.cmd'
+NPM_BIN_PATH = os.getenv("NPM_BIN_PATH")
 AUTH_USER_MODEL = "users.CustomUser"
 # AUTHENTICATION_BACKENDS = ['app.backends.EmailBackend']
 TAILWIND_APP_NAME = 'tailwindcss'
