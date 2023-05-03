@@ -95,7 +95,7 @@ WSGI_APPLICATION = os.getenv("WSGI_APPLICATION")
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_psdb_engine',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('PLANETSCALE_DB_NAME'),
         'HOST': os.environ.get('PLANETSCALE_DB_HOST'),
         'PORT': os.environ.get('PLANETSCALE_DB_PORT'),

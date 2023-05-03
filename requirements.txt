@@ -4,12 +4,11 @@ cloudinary==1.32.0
 colorama==0.4.6
 Django==4.2
 django-browser-reload==1.8.0
-django-psdb-engine==1.0.6
 django-tailwind==3.5.0
 geographiclib==2.0
 geopy==2.3.0
 greenlet==2.0.2
-# mysqlclient==2.1.1
+mysqlclient==2.1.1
 PyMySQL==1.0.3
 pypng==0.20220715.0
 python-dotenv==1.0.0
