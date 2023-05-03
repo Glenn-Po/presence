@@ -1,6 +1,5 @@
 # build_files.sh
-apt update
-apt install python3-venv
+pip install python3-venv
 python3.9 -m venv .
 source bin/activate
 pip install --upgrade pip
