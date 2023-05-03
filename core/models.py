@@ -10,7 +10,7 @@ class Location(models.Model):
         max_digits=20, decimal_places=8, blank=False, null=False)
     longitude = models.DecimalField(
         max_digits=20, decimal_places=8, blank=False, null=False)
-    radius = models.IntegerField(default=100, blank=False, null=False)
+    radius = models.IntegerField(default=3500, blank=False, null=False)
     qr_code_url = models.TextField(max_length=1024, blank=False, null=False)
 
     def __str__(self):

@@ -265,8 +265,10 @@ def render_user_dashboard(request):
         employee=request.user.id, date=date.today()).first()
     # states: NONE, IN_ONLY, BOTH
     # cloked in only: True, clocked in but not out: false, clocked in and out: None
+    print(attendance)
     clocked_in_state = 'NONE' if attendance is None else (
         'IN_ONLY' if attendance.clock_out_time is None else 'BOTH')
+    print(clocked_in_state)
     context = {
         "clocked_in_state": clocked_in_state, "attendance": attendance}
     return render(request, template_name="pages/user/dashboard.html", context=context)

@@ -30,7 +30,7 @@
         Logout
       </a>
       <p class="text-neutral-100 mb-2 text-center">
-        {% if clocked_in_state != 'BOTH'  %} 
+        {% if clocked_in_state == 'BOTH'  %} 
           You have already clocked in for today <br>
           Workday: {{ attendance.clock_in_time  }} - {{ attendance.clock_out_time }}
         {% elif clocked_in_state == 'IN_ONLY' %} 
@@ -53,12 +53,13 @@
             class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
             >Clock In</a
           >
-        {% endif %}
+        {% else %}
           <a
             href="{% url 'user_clock_action' %}"
             class="px-5 py-2 bg-white text-neutral-600 rounded-lg hover:bg-neutral-200 hover:translate-y-[-4px] transition-all"
             >Clock Out</a
           >
+        {% endif %}
       {% endif %} 
         <a
           href="{% url 'request_leave' %}"
