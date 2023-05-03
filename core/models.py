@@ -28,6 +28,10 @@ class Attendance(models.Model):
     # forgetting to clock out is a thing
     clock_out_time = models.TimeField(auto_now=False, null=True)
 
+    def __str__(self):
+        return "Attendance({}, {},date={}, from={}, to={})" \
+            .format(self.location, self.employee, self.date, self.clock_in_time, self.clock_out_time)
+
 
 class LeaveRequest(models.Model):
     employee = models.ForeignKey(
@@ -35,3 +39,7 @@ class LeaveRequest(models.Model):
     days_off = models.IntegerField(null=False)
     starting_date = models.DateField(null=False)
     message = models.TextField(max_length=2048, blank=True, null=True)
+
+    def __str__(self):
+        return "LR({}, days={}, starting{})" \
+            .format(self.employee, self.days_off, self.starting_date)

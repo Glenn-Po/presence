@@ -65,5 +65,4 @@ radius: in metres
 def position_within_area(geoposition: tuple[float, float],
                          center:  tuple[float, float],
                          radius) -> bool:
-
     return distance.distance(geoposition, center).m <= radius

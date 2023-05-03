@@ -27,7 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.getenv("DEBUG"))
+DEBUG = eval(os.getenv("DEBUG"))
+print(DEBUG)
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok-free.app',
                  '*.vercel.app', '.now.sh', '.pythonanywhere.com']
 CSRF_TRUSTED_ORIGINS = [
@@ -103,6 +104,7 @@ DATABASES = {
         'PORT': os.environ.get('PLANETSCALE_DB_PORT'),
         'USER': os.environ.get('PLANETSCALE_DB_USER'),
         'PASSWORD': os.environ.get('PLANETSCALE_DB_PASSWORD'),
+        'CONN_MAX_AGE': None,
         'OPTIONS': {'charset': 'utf8mb4', 'ssl': {'ca': os.environ.get('MYSQL_ATTR_SSL_CA')}}
     }
 }

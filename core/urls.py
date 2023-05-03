@@ -5,6 +5,8 @@ from .views import index, render_user_dashboard, render_admin_dashboard, \
     view_attendance, filter_attendance_by_date, filter_attendance_by_employee,\
     register_attendance, delete_leave_request, request_leave
 
+handler404 = 'core.views.error_404_view'
+
 urlpatterns = [
     path('', index, name="home"),
     # employee routes
