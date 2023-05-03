@@ -1,4 +1,4 @@
 # build_files.sh
-source presence/bin/activate
+source ./bin/activate
 pip install -r requirements.txt
 python3.9 manage.py collectstatic
