@@ -3,7 +3,7 @@
   "builds": [
     {
       "src": "presence/wsgi.py",
-      "use": "@vercel/python",
+      "use": "@jgtvares/py-vercel",
       "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
     },
     {
