@@ -11,6 +11,11 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+import pymysql  # import pymysql
+
+pymysql.install_as_MySQLdb()  # call this method before any Django import
+
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'presence.settings')
 
 application = get_wsgi_application()
