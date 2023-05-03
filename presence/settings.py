@@ -28,9 +28,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DEBUG"))
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.ngrok-free.app',
+                 '*.vercel.app', '.now.sh', '.pythonanywhere.com']
 CSRF_TRUSTED_ORIGINS = [
-    'https://db19-129-0-79-198.ngrok-free.app', 'https://*.vercel.app']
+    'https://*.ngrok-free.app', 'https://*.vercel.app',
+    'https://*.pythonanywhere.com']
 
 # Application definition
 
@@ -95,7 +97,7 @@ WSGI_APPLICATION = os.getenv("WSGI_APPLICATION")
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django_psdb_engine',
         'NAME': os.environ.get('PLANETSCALE_DB_NAME'),
         'HOST': os.environ.get('PLANETSCALE_DB_HOST'),
         'PORT': os.environ.get('PLANETSCALE_DB_PORT'),

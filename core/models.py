@@ -20,9 +20,9 @@ class Location(models.Model):
 
 class Attendance(models.Model):
     location = models.ForeignKey(
-        Location, related_name='attendance', on_delete=models.DO_NOTHING, db_constraint=False)
+        Location, related_name='attendance', on_delete=models.CASCADE)
     employee = models.ForeignKey(
-        CustomUser, related_name='attendance', on_delete=models.DO_NOTHING, db_constraint=False)
+        CustomUser, related_name='attendance', on_delete=models.CASCADE)
     date = models.DateField(auto_now=True, null=False)
     clock_in_time = models.TimeField(auto_now=True, null=False)
     # forgetting to clock out is a thing
@@ -31,7 +31,7 @@ class Attendance(models.Model):
 
 class LeaveRequest(models.Model):
     employee = models.ForeignKey(
-        CustomUser, related_name="leave_request", on_delete=models.DO_NOTHING, db_constraint=False)
+        CustomUser, related_name="leave_request", on_delete=models.CASCADE)
     days_off = models.IntegerField(null=False)
     starting_date = models.DateField(null=False)
     message = models.TextField(max_length=2048, blank=True, null=True)
