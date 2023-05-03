@@ -3,6 +3,9 @@
 .env
 .log
 notes.trash
+Scripts/
+Include/
+Lib/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
