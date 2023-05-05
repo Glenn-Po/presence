@@ -19,7 +19,7 @@ class EmployeeForm(forms.Form):
     start_date = forms.DateField()
     telephone = forms.CharField(max_length=15)
     address = forms.CharField(max_length=255)
-    is_manager = forms.BooleanField(initial=False)
+    is_manager = forms.BooleanField(initial=False, required=False)
 
 
 class LocationForm(forms.ModelForm):
