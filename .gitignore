@@ -1,11 +1,14 @@
 #custom
 .idea
+.vscode
 .env
 .log
 notes.trash
 Scripts/
 Include/
 Lib/
+share/
+staticfiles_build/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
